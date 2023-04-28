@@ -1,0 +1,21 @@
+*
+{
+    margin: 0px;
+}
+
+.bg
+{
+    margin: 0px;
+    padding: 0px;
+    /* background-image: linear-gradient(to right, red, yellow,green,blue); */
+    height: 100vh;
+    width: 100vw;
+    /* filter:brightness(50%); */
+/* 
+    display: grid;
+    grid-template-columns: auto auto; */
+}
+
+.red{
+    background-color: red !important;
+}

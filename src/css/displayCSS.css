@@ -1,0 +1,9 @@
+.display
+{
+    border: 1px solid black;
+    background-color: rgb(173, 173, 173);
+    height: 90vh;
+    /* align-content: center; */
+    justify-content: center;
+
+}
