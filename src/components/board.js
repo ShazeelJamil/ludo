@@ -38,19 +38,19 @@ export default function board() {
 
                 <div className='container1' >
                     <PlayerHome bgColor="red" />
-                    <Pathways stops={stops} highlighted={stopHorizontalLeftHighlights} stopcolor="red" layout="horizontal" />
+                    <Pathways stops={stops} highlighted={stopHorizontalLeftHighlights} stopcolor="redstops" layout="horizontal" />
                     <PlayerHome bgColor="yellow" />
                 </div>
 
                 <div className="container2">
-                    <Pathways stops={stops} highlighted={stopVerticalUpHighlights} stopcolor="red" />
+                    <Pathways stops={stops} highlighted={stopVerticalUpHighlights} stopcolor="greenstops" />
                     <Home />
-                    <Pathways stops={stops} highlighted={stopVerticalDownHighlights} stopcolor="red" />
+                    <Pathways stops={stops} highlighted={stopVerticalDownHighlights} stopcolor="yellowstops" />
                 </div>
 
                 <div className="container3">
                     <PlayerHome bgColor="green" />
-                    <Pathways stops={stops} highlighted={stopHorizontalRightHighlights} stopcolor="red" layout="horizontal" />
+                    <Pathways stops={stops} highlighted={stopHorizontalRightHighlights} stopcolor="bluestops" layout="horizontal" />
                     <PlayerHome bgColor="blue" color="white" />
 
                 </div>

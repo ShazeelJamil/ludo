@@ -13,11 +13,26 @@
 
 
 }
-
 .pathway-cell
 {
     border: 1px solid black;
     background-color: aliceblue;
     color: rgb(0, 0, 0);
     
+}
+.redstops
+{
+    background-color: rgb(224, 149, 149);
+}
+.greenstops
+{
+    background-color: green;
+}
+.yellowstops
+{
+    background-color: yellow;
+}
+.bluestops
+{
+    background-color: blue;
 }
