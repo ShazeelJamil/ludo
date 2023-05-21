@@ -23,6 +23,7 @@ export default function pathway(props) {
                 var classes = isHighlighted ? `pathway-cell ${props.stopcolor}` : "pathway-cell"
                 return (
                   // <div className={classes}>{item}</div>
+                  // <div className={classes}>{props.pawn}</div>
                   <div className={classes}></div>
                 )
               })

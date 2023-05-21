@@ -3,6 +3,7 @@ import boardCSS from '../css/board.css'
 import Pathways from '../components/pathway.js'
 import PlayerHome from './playerHome.js'
 import Home from './Home'
+import Pawn from './pawn'
 
 export default function board() {
     var stops = [
@@ -37,9 +38,9 @@ export default function board() {
 
 
                 <div className='container1' >
-                    <PlayerHome bgColor="red" />
+                    <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} />
                     <Pathways stops={stops} highlighted={stopHorizontalLeftHighlights} stopcolor="redstops" layout="horizontal" />
-                    <PlayerHome bgColor="yellow" />
+                    <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} />
                 </div>
 
                 <div className="container2">
@@ -49,9 +50,9 @@ export default function board() {
                 </div>
 
                 <div className="container3">
-                    <PlayerHome bgColor="green" />
+                    <PlayerHome bgColor="green"  pawn={<Pawn pawncolor="green" />}  />
                     <Pathways stops={stops} highlighted={stopHorizontalRightHighlights} stopcolor="bluestops" layout="horizontal" />
-                    <PlayerHome bgColor="blue" color="white" />
+                    <PlayerHome bgColor="blue" color="white" pawn={<Pawn pawncolor="blue" />} />
 
                 </div>
 
