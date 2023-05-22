@@ -10,7 +10,6 @@ function App() {
         <Board />
         {/* <Display/> */}
       </div>
-
     </div>
   );
 }
