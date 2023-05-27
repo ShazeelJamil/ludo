@@ -1,0 +1,14 @@
+.pawnDiv {
+    border: 2px solid rgb(0, 0, 0);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto auto;   
+    justify-items: center;
+    width: 50%;
+}
+/* .pawnDiv >*
+{
+    display: inline-block;
+     border: 1px solid black;
+    
+} */
