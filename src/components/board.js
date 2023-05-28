@@ -37,11 +37,11 @@ export default function board() {
         <>
             <div className="board" style={boardCSS}>
                 <div className='container1' >
-                    {/* <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} pawnArray={['1', '2', '3', '4']} /> */}
-                    <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} />
+                    {/* <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} /> */}
                 
+                    <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} pawnArray={['', '', '', '']} />
                     <Pathways stops={stops} highlighted={stopHorizontalLeftHighlights} stopcolor="redstops" layout="horizontal" />
-                    <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} />
+                    <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} pawnArray={['', '', '', '']} />
                 </div>
 
                 <div className="container2">
@@ -51,9 +51,9 @@ export default function board() {
                 </div>
 
                 <div className="container3">
-                    <PlayerHome bgColor="green" pawn={<Pawn pawncolor="green" />} />
+                    <PlayerHome bgColor="green" pawn={<Pawn pawncolor="green" />} pawnArray={['', '', '', '']} />
                     <Pathways stops={stops} highlighted={stopHorizontalRightHighlights} stopcolor="bluestops" layout="horizontal" />
-                    <PlayerHome bgColor="blue" color="white" pawn={<Pawn pawncolor="blue" />} />
+                    <PlayerHome bgColor="blue" color="white" pawn={<Pawn pawncolor="blue" />} pawnArray={['', '', '', '']}/>
 
                 </div>
 

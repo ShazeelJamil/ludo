@@ -34,21 +34,26 @@ export default function PlayerHome(props) {
   };
 
   return (
-    // <div style={homeStyle}>
-    //   {props.pawn.map((pawn, index) => (
-    //     <div key={index} className="pawn" onClick={() => playAnimation(index)}>
-    //       {pawn}
-    //     </div>
-    //   ))}
-    // </div>
-
-    <div className='playerHome' style={homeStyle} >
+    <div style={homeStyle}>
       <div className="pawnDiv" style={pawnCSS} >
-        <div key={0} onClick={() => playAnimation(0)}> {props.pawn}</div>
-        <div key={1} onClick={() => playAnimation(1)}> {props.pawn}</div>
-        <div key={2} onClick={() => playAnimation(2)}> {props.pawn}</div>
-        <div key={3} onClick={() => playAnimation(3)}> {props.pawn}</div>
+        {props.pawnArray.map((pawnArray, index) => (
+          <div key={index} className="pawn" onClick={() => playAnimation(index)}>
+            {props.pawnArray[index]}
+          </div>
+        ))}
       </div>
     </div>
+
+
+    // <div className='playerHome' style={homeStyle} >
+    //   <div className="pawnDiv" style={pawnCSS} >
+    //     <div key={0} onClick={() => playAnimation(0)}> {props.pawn}</div>
+    //     <div key={1} onClick={() => playAnimation(1)}> {props.pawn}</div>
+    //     <div key={2} onClick={() => playAnimation(2)}> {props.pawn}</div>
+    //     <div key={3} onClick={() => playAnimation(3)}> {props.pawn}</div>
+    //   </div>
+    // </div>
+
+
   )
 }
