@@ -12,15 +12,15 @@ export default function PlayerHome(props) {
 
   const [positions, setPositions] = useState([{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]);
 
-  const playAnimation = (index) => {
+  const playAnimation = (elem, index) => {
     console.log("Animation");
-    const targetPawn = document.getElementsByClassName("pawn")[index];
+    //const targetPawn = document.getElementsByClassName("pawn")[index];
     const prevX = positions[index].x;
     const prevY = positions[index].y;
     const newX = prevX + 100;
     const newY = prevY + 100;
     gsap.fromTo(
-      targetPawn,
+      elem,
       { x: prevX, y: prevY },
       {
         x: newX,
@@ -36,14 +36,13 @@ export default function PlayerHome(props) {
   return (
     <div style={homeStyle}>
       <div className="pawnDiv" style={pawnCSS} >
-        {props.pawnArray.map((pawnArray, index) => (
-          <div key={index} className="pawn" onClick={() => playAnimation(index)}>
-            {props.pawnArray[index]}
+        {props.pawnArray.map((elem, index) => (
+          <div key={index} onClick={() => playAnimation(props.pawn[index], index)}>
+            {props.pawn}
           </div>
         ))}
       </div>
     </div>
-
 
     // <div className='playerHome' style={homeStyle} >
     //   <div className="pawnDiv" style={pawnCSS} >

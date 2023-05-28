@@ -36,6 +36,7 @@ export default function board() {
     return (
         <>
             <div className="board" style={boardCSS}>
+
                 <div className='container1' >
                     {/* <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} /> */}
                 
@@ -43,7 +44,6 @@ export default function board() {
                     <Pathways stops={stops} highlighted={stopHorizontalLeftHighlights} stopcolor="redstops" layout="horizontal" />
                     <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} pawnArray={['', '', '', '']} />
                 </div>
-
                 <div className="container2">
                     <Pathways stops={stops} highlighted={stopVerticalUpHighlights} stopcolor="greenstops" />
                     <Home />
