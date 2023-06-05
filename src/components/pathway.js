@@ -6,23 +6,23 @@ export default function pathway(props) {
   var stops = props.stops
   var hstops = props.highlighted
 
-  var layout=props.layout
-
-  var divClass="pathwayVertical";
-  if(layout==="horizontal")
-    divClass="pathwayHorizontal"
+  var layout = props.layout
+  var divClass = "pathwayVertical";
+  if (layout === "horizontal")
+    divClass = "pathwayHorizontal"
 
   return (
     <div className={divClass} style={PathwayCSS} >
       {
-        stops.map((row) => (
+        stops.map((row, rowIndex) => (
           <>
             {
-              row.map(function (item) {
+              row.map(function (item, colIndex) {
                 var isHighlighted = hstops.includes(item)
-                var classes = isHighlighted ? `pathway-cell ${props.stopcolor}` : "pathway-cell"
+                var defaultClass = `pathway-cell ${props.color + rowIndex + colIndex}`
+                var classes = isHighlighted ? `${defaultClass} ${props.stopcolor}` : defaultClass
                 return (
-                  <div className={classes}></div>
+                  <div key={`${props.color + rowIndex + colIndex}`} id={props.color + rowIndex + colIndex} className={classes}></div>
                 )
               })
             }

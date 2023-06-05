@@ -41,18 +41,18 @@ export default function board() {
                     {/* <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} /> */}
                 
                     <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} pawnArray={['', '', '', '']} />
-                    <Pathways stops={stops} highlighted={stopHorizontalLeftHighlights} stopcolor="redstops" layout="horizontal" />
+                    <Pathways stops={stops} highlighted={stopHorizontalLeftHighlights} stopcolor="redstops" layout="horizontal" color='red' />
                     <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} pawnArray={['', '', '', '']} />
                 </div>
                 <div className="container2">
-                    <Pathways stops={stops} highlighted={stopVerticalUpHighlights} stopcolor="greenstops" />
+                    <Pathways stops={stops} highlighted={stopVerticalUpHighlights} stopcolor="greenstops" color='green'/>
                     <Home />
-                    <Pathways stops={stops} highlighted={stopVerticalDownHighlights} stopcolor="yellowstops" />
+                    <Pathways stops={stops} highlighted={stopVerticalDownHighlights} stopcolor="yellowstops" color='yellow'/>
                 </div>
 
                 <div className="container3">
                     <PlayerHome bgColor="green" pawn={<Pawn pawncolor="green" />} pawnArray={['', '', '', '']} />
-                    <Pathways stops={stops} highlighted={stopHorizontalRightHighlights} stopcolor="bluestops" layout="horizontal" />
+                    <Pathways stops={stops} highlighted={stopHorizontalRightHighlights} stopcolor="bluestops" layout="horizontal" color='blue'/>
                     <PlayerHome bgColor="blue" color="white" pawn={<Pawn pawncolor="blue" />} pawnArray={['', '', '', '']}/>
 
                 </div>
