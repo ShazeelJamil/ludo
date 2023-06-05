@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+// eslint-disable-next-line
 import { gsap } from 'gsap';
 import pawnCSS from "../css/playerHomeCss.css";
+import chroma from 'chroma-js';
 
 export default function PlayerHome(props) {
   var homeStyle = {
@@ -10,97 +12,60 @@ export default function PlayerHome(props) {
   };
 
 
-  // const [positions, setPositions] = useState([{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]);
-
-  const playAnimation = (event, index, targetDivId) => {
+  const playAnimation = (event, index) => {
 
     var targetPawn = event.target;
-    console.log("Target: " + targetDivId);
+
+    var computedStyle = window.getComputedStyle(targetPawn);
+
+    var colorValue = computedStyle.backgroundColor;
+    var colorName = chroma(colorValue).name();
+
+    var targetDivId = "68";
+
+    if (colorName === '#ec0303') { targetDivId = "14" }
+    else if (colorName === 'green') { targetDivId = "32" }
+    else if (colorName === 'blue') { targetDivId = "50" }
+
     var targetDiv = document.getElementById(targetDivId);
 
+    targetDiv.classList.add("gradient-effect")
+
     targetPawn.classList.add("multipleDisplay")
+
+    console.log(colorName);
     if (targetDiv.hasChildNodes()) {
 
       var lastChild = targetDiv.lastElementChild;
 
-
-      const parentWidth = parentDiv.offsetWidth;
-      const childWidth = childDiv.offsetWidth;
-
-      const leftOffset = (parentWidth - childWidth) / 2;
-      childDiv.style.left = leftOffset + 'px';
-
-
-
-
-
-
-
+      var lastChildLeft = lastChild.style.left || '0';
+      var lastChildLeftValue = parseInt(lastChildLeft);
 
       var prev_z_index = lastChild.zIndex;
-      var left = lastChild.style.left;
+      var newLeftOffset = lastChildLeftValue + 7;
 
-      console.log("last_left: " + lastChild.style.left)
-      console.log("last_zIndex: " + targetDiv.lastElementChild.zIndex)
-
+      targetPawn.style.left = newLeftOffset + 'px';
       targetPawn.zIndex = prev_z_index - 1;
-      targetPawn.style.left = left + 5;
-
-      console.log("new_zIndex: " + targetPawn.zIndex)
-      console.log("new_left: " + targetPawn.style.left)
-
-
     }
     else {
-
-      targetPawn.zIndex = 1;
+      targetPawn.zIndex = -1;
+      targetPawn.style.left = '5px';
     }
 
     targetDiv.appendChild(targetPawn);
 
+    setTimeout(() => {
+      targetDiv.classList.remove('gradient-effect');
+    }, 1000);
 
-
-
-
-
-
-
-    // const targetDiv = document.getElementById(targetDivId); // Assuming each div has an ID with the format "div-{index}"
-
-    // const rect = targetDiv.getBoundingClientRect();
-
-    // const prevX = positions[index].x;
-    // const prevY = positions[index].y;
-    // console.log("prev positions", prevX, prevY);
-
-
-    // // const newX = rect.left + (rect.width / 2) - (rect.x / 2);
-    // // const newY = rect.top + (rect.height / 2) - (rect.y / 2);
-
-    // const newX = rect.left;
-    // const newY = rect.top;
-
-    // console.log("new positions", newX, newY);
-
-    // gsap.fromTo(
-    //   targetPawn,
-    //   { x: prevX, y: prevY },
-    //   {
-    //     x: newX,
-    //     y: newY,
-    //     duration: 1,
-    //   }
-    // );
-    // const updatedPositions = [...positions];
-    // updatedPositions[index] = { x: newX, y: newY };
-    // setPositions(updatedPositions);
   };
+
 
   return (
     <div style={homeStyle}>
       <div className="pawnDiv" style={pawnCSS} >
         {props.pawnArray.map((elem, index) => (
-          <div key={props.bgColor + index} onClick={(e) => playAnimation(e, index, "red01")}>
+          <div key={props.bgColor + index} onClick={(e) => playAnimation(e, index)}>
             {props.pawn}
           </div>
         ))}

@@ -2,7 +2,7 @@
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    border: 3px solid white;
+    border: 3px solid rgb(178 174 175)
     /* background-color: ; */
 
 }
@@ -20,8 +20,8 @@
 }
 
 .pawnyellow {
-    background-color: #e0f713;
-    border: 3px solid rgb(12, 12, 12);
+    background-color: hsl(66, 93%, 52%);
+    /* border: 3px solid rgb(12, 12, 12); */
 }
 
 .pawnblue {
@@ -34,8 +34,9 @@
 
 .multipleDisplay {
     position: absolute;
-    left: 5px;
+    left: 6px;
     top: 6px;
+    
     /* transform: translate(-50%, -50%); */
     
 }

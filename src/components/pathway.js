@@ -9,10 +9,10 @@ export default function pathway(props) {
   var layout = props.layout
   var divClass = "pathwayVertical";
   if (layout === "horizontal")
-    divClass = "pathwayHorizontal"
+    divClass = "pathwayHorizontal";
 
   return (
-    <div className={divClass} style={PathwayCSS} >
+    <div className={divClass} style={PathwayCSS}  >
       {
         stops.map((row, rowIndex) => (
           <>
@@ -22,7 +22,7 @@ export default function pathway(props) {
                 var defaultClass = `pathway-cell ${props.color + rowIndex + colIndex}`
                 var classes = isHighlighted ? `${defaultClass} ${props.stopcolor}` : defaultClass
                 return (
-                  <div key={`${props.color + rowIndex + colIndex}`} id={props.color + rowIndex + colIndex} className={classes}></div>
+                  <div key={`${props.color + rowIndex + colIndex}`} id={item} className={classes}></div>
                 )
               })
             }

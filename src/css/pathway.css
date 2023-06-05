@@ -1,38 +1,54 @@
-.pathwayVertical
-{
- display: grid;   
- grid-template-columns: auto auto auto;
- /* align-items: stretch; */
+.pathwayVertical {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /* align-items: stretch; */
 
 }
-.pathwayHorizontal
-{
- display: grid;   
- grid-template-columns: auto auto auto auto auto auto ;
- /* align-items: stretch; */
+
+.pathwayHorizontal {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    /* align-items: stretch; */
 
 
 }
-.pathway-cell
-{
+
+.pathway-cell {
     border: 1px solid black;
-    background-color: aliceblue;   
+    background-color: aliceblue;
     position: relative;
- 
+
 }
-.redstops
-{
+
+.redstops {
     background-color: rgb(250, 34, 34);
 }
-.greenstops
-{
+
+.greenstops {
     background-color: green;
 }
-.yellowstops
-{
+
+.yellowstops {
     background-color: yellow;
 }
-.bluestops
-{
+
+.bluestops {
     background-color: blue;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 50% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.gradient-effect {
+    background-image: repeating-radial-gradient(red, yellow 10%, green 15%);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: gradient-animation 1s;
 }
