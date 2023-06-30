@@ -20,17 +20,17 @@ export default function PlayerHome(props) {
 
     var colorValue = computedStyle.backgroundColor;
     var colorName = chroma(colorValue).name();
-
     var targetDivId = "68";
 
     if (colorName === '#ec0303') { targetDivId = "14" }
     else if (colorName === 'green') { targetDivId = "32" }
     else if (colorName === 'blue') { targetDivId = "50" }
 
+    if (targetPawn.parentElement.id === targetDivId) return;
+    
     var targetDiv = document.getElementById(targetDivId);
 
     targetDiv.classList.add("gradient-effect")
-
     targetPawn.classList.add("multipleDisplay")
 
     console.log(colorName);
@@ -62,10 +62,10 @@ export default function PlayerHome(props) {
 
 
   return (
-    <div style={homeStyle}>
+    <div id="playerHome" style={homeStyle}>
       <div className="pawnDiv" style={pawnCSS} >
         {props.pawnArray.map((elem, index) => (
-          <div key={props.bgColor + index} onClick={(e) => playAnimation(e, index)}>
+          <div key={props.bgColor + index} className='singlePawn' onClick={(e) => playAnimation(e, index)}>
             {props.pawn}
           </div>
         ))}

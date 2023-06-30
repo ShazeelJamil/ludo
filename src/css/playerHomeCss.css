@@ -1,10 +1,15 @@
-.pawnDiv {
-    border: 2px solid rgb(0, 0, 0);
+.pawnDiv { 
     padding: 10px;
     display: grid;
     grid-template-columns: auto auto;   
     justify-items: center;
     width: 50%;
+    margin: 70px auto ;
+    
+}
+.singlePawn
+{
+    margin: 5px;
 }
 /* .pawnDiv >*
 {
