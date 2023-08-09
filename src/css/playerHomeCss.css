@@ -1,12 +1,12 @@
-.pawnDiv { 
+ .pawnDiv { 
     padding: 10px;
     display: grid;
     grid-template-columns: auto auto;   
     justify-items: center;
-    width: 50%;
+    width: 70%;
     margin: 70px auto ;
     
-}
+ }  
 .singlePawn
 {
     margin: 5px;

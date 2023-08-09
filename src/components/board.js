@@ -36,17 +36,25 @@ export default function board() {
         [68, 62, 59],
         [67, 61, 60]
     ]
-
     var yellowUnkillableStops = [58, 68, 62, 63, 64, 65, 66];
+
+
+    var unkillables =
+        [
+            yellowUnkillableStops,
+            blueUnkillableStops,
+            greenUnkillableStops,
+            redUnkillableStops
+        ]
 
     return (
         <>
             <div className="board" style={boardCSS}>
 
                 <div className='container1' >
-                    <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
                     <Pathways stops={redStop} highlighted={redUnkillableStops} stopcolor="redstops" layout="horizontal" color='red' />
-                    <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
                 </div>
                 <div className="container2">
                     <Pathways stops={greenStop} highlighted={greenUnkillableStops} stopcolor="greenstops" color='green' />
@@ -55,9 +63,9 @@ export default function board() {
                 </div>
 
                 <div className="container3">
-                    <PlayerHome bgColor="green" pawn={<Pawn pawncolor="green" />} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="green" pawn={<Pawn pawncolor="green" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
                     <Pathways stops={blueStop} highlighted={blueUnkillableStops} stopcolor="bluestops" layout="horizontal" color='blue' />
-                    <PlayerHome bgColor="blue" color="white" pawn={<Pawn pawncolor="blue" />} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="blue" color="white" pawn={<Pawn pawncolor="blue" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
 
                 </div>
 
