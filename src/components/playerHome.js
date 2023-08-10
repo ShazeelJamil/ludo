@@ -11,6 +11,10 @@ export default function PlayerHome(props) {
     borderRadius: "5px",
   };
 
+  function isInHome(id) {
+    return (((id >= 8 && id <= 12) || (id >= 26 && id <= 30) || (id >= 44 && id <= 48) || (id >= 62 && id <= 66)) ? true : false);
+  }
+
 
   const playAnimation = (event, index) => {
 
@@ -20,44 +24,41 @@ export default function PlayerHome(props) {
     var colorValue = computedStyle.backgroundColor;
     var colorName = chroma(colorValue).name();
 
+    if (colorName === '#ec0303') { colorName = "red"; }
+    else if (colorName === '#e0f613') { colorName = "yellow"; }
+
     var inc = 3;
 
     var targetDivId;
     if (targetPawn.parentElement.className === "pawnHomeDiv") {
-      targetDivId = "68"; //yellow
-      if (colorName === '#ec0303') { targetDivId = "14" } //red
-      else if (colorName === 'green') { targetDivId = "32" }
+      targetDivId = "32"; //green
+      if (colorName === 'red') { targetDivId = "14" }
+      else if (colorName === 'yellow') { targetDivId = "68" }
       else if (colorName === 'blue') { targetDivId = "50" }
     }
     else {
 
-      
-
-
-
-
-
-
       targetDivId = parseInt(targetPawn.parentElement.id)
       targetDivId = (targetDivId + inc) % 72
+
+      var tarDiv = document.getElementById(targetDivId);
+
+      var sameColor = false;
+      if (tarDiv.classList[1].includes(colorName)) { sameColor = true; }
+
+      if (isInHome(targetDivId) && !sameColor) // check if it about to be in home
+      {
+        targetDivId += 5;
+      }
       targetDivId = targetDivId === 0 ? 1 : targetDivId
       targetDivId = targetDivId.toString()
     }
 
+
     if (targetPawn.parentElement.id === targetDivId) return; // source and dstination are same
-
     var targetDiv = document.getElementById(targetDivId);
-
     targetDiv.classList.add("gradient-effect")
     targetPawn.classList.add("multipleDisplay")
-
-
-
-
-
-
-
-
 
     if (targetDiv.hasChildNodes()) {
 
