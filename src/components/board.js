@@ -17,7 +17,7 @@ export default function board() {
         [23, 26, 32],
         [22, 27, 33],
         [21, 28, 34],
-        [20, 29, 33],
+        [20, 29, 35],
         [19, 30, 36]
     ]
     var greenUnkillableStops = [22, 32, 26, 27, 28, 29, 30];

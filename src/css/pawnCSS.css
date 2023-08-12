@@ -3,8 +3,11 @@
     width: 25px;
     border-radius: 50%;
     border: 3px solid rgb(178 174 175)
-    /* background-color: ; */
+    
+}
 
+.pawn:hover{
+    transform: translate(3px,3px);
 }
 
 /* .pawnDesc
