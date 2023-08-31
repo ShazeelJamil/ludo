@@ -13,7 +13,7 @@
 .container3
 {
     display: grid;
-    grid-template-rows: auto 20% auto;
+    grid-template-rows: 40% 20% 40%;
 }
 
 

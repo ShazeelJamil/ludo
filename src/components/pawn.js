@@ -1,9 +1,6 @@
 
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import pawnCSS from '../css/pawnCSS.css'
-
-
-
 
 export default function Pawn(props) {
 

@@ -52,9 +52,9 @@ export default function board() {
             <div className="board" style={boardCSS}>
 
                 <div className='container1' >
-                    <PlayerHome bgColor="red" pawn={<Pawn pawncolor="red" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="red" pawncolor="red" pawn={<Pawn pawncolor="red" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
                     <Pathways stops={redStop} highlighted={redUnkillableStops} stopcolor="redstops" layout="horizontal" color='red' />
-                    <PlayerHome bgColor="yellow" pawn={<Pawn pawncolor="yellow" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="yellow"pawncolor="yellow" pawn={<Pawn pawncolor="yellow" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
                 </div>
                 <div className="container2">
                     <Pathways stops={greenStop} highlighted={greenUnkillableStops} stopcolor="greenstops" color='green' />
@@ -63,9 +63,9 @@ export default function board() {
                 </div>
 
                 <div className="container3">
-                    <PlayerHome bgColor="green" pawn={<Pawn pawncolor="green" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="green" pawncolor="green" pawn={<Pawn pawncolor="green" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
                     <Pathways stops={blueStop} highlighted={blueUnkillableStops} stopcolor="bluestops" layout="horizontal" color='blue' />
-                    <PlayerHome bgColor="blue" color="white" pawn={<Pawn pawncolor="blue" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="blue" pawncolor="blue" color="white" pawn={<Pawn pawncolor="blue" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
 
                 </div>
 

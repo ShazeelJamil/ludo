@@ -7,7 +7,7 @@
 }
 
 .pawn:hover{
-    transform: translate(3px,3px);
+    transform: translate(-3px,-3px);
 }
 
 /* .pawnDesc

@@ -1,10 +1,18 @@
 import React from 'react';
-// eslint-disable-next-line
-import { gsap } from 'gsap';
-import pawnCSS from "../css/playerHomeCss.css";
+import pawnCSS from '../css/pawnCSS.css'
+import pawnDivCSS from "../css/playerHomeCss.css";
 import chroma from 'chroma-js';
+import { useDispatch } from 'react-redux'
+import { begin, kill } from '../provider/Slices/LudoAction';
+
 
 export default function PlayerHome(props) {
+  var pawnClass;
+  if (props.pawncolor === 'green') pawnClass = "pawngreen"
+  else if (props.pawncolor === 'blue') pawnClass = "pawnblue"
+  else if (props.pawncolor === 'yellow') pawnClass = "pawnyellow"
+  else pawnClass = "pawnred"
+
   var homeStyle = {
     backgroundColor: props.bgColor,
     color: props.color,
@@ -15,10 +23,29 @@ export default function PlayerHome(props) {
     return (((id >= 8 && id <= 12) || (id >= 26 && id <= 30) || (id >= 44 && id <= 48) || (id >= 62 && id <= 66)) ? true : false);
   }
 
+  const dispatch = useDispatch()
+
+  function enableOnTheWay(player,pawnindex) 
+  {
+    const action={
+      player: player,
+      index: pawnindex,
+    }
+    dispatch(begin(action));
+  }
+  function enableKill(player,pawnindex) 
+  {
+    const action={
+      player: player,
+      index: pawnindex,
+    }
+    dispatch(kill(action));
+  }
+  
 
   const playAnimation = (event, index) => {
 
-    var targetPawn = event.target;
+    var targetPawn = event.target
     var computedStyle = window.getComputedStyle(targetPawn);
 
     var colorValue = computedStyle.backgroundColor;
@@ -30,11 +57,13 @@ export default function PlayerHome(props) {
     var inc = 1;
 
     var targetDivId;
-    if (targetPawn.parentElement.className === "pawnHomeDiv") {
+    if (targetPawn.parentElement.className.includes("pawnHomeDiv")) {
       targetDivId = "32"; //green
       if (colorName === 'red') { targetDivId = "14" }
       else if (colorName === 'yellow') { targetDivId = "68" }
       else if (colorName === 'blue') { targetDivId = "50" }
+        
+      enableOnTheWay(colorName, targetPawn.id)
     }
     else {
 
@@ -45,13 +74,13 @@ export default function PlayerHome(props) {
 
       if (isInHome(targetDivId) && !tarDiv.classList[1].includes(colorName)) // check if it about to be in home and to check if the right pawns enters the home
       { targetDivId += 5; }
-      targetDivId = targetDivId === 0 ? 1 : targetDivId
+      targetDivId = targetDivId === 0 ? 72 : targetDivId
       targetDivId = targetDivId.toString()
     }
 
     if (targetPawn.parentElement.id === targetDivId) return; // source and dstination are same
     var targetDiv = document.getElementById(targetDivId);
-    
+
     targetDiv.classList.add("gradient-effect")
     targetPawn.classList.add("multipleDisplay")
 
@@ -82,8 +111,12 @@ export default function PlayerHome(props) {
 
         // console.log("homeDivClass - ", homeDivClass)
         var homeDiv = document.getElementById(homeDivClass)
-        // homeDiv.style.border="1px solid black"
+        homeDiv.classList.add("pawnHomeDiv");
+        // homeDiv.style.border = "1px solid black"
         homeDiv.appendChild(lastChild)
+               
+        enableKill(homeDivClass, lastChild.id)
+
       }
 
     }
@@ -93,18 +126,17 @@ export default function PlayerHome(props) {
     }
 
     targetDiv.appendChild(targetPawn);
-    setTimeout(() => {
-      targetDiv.classList.remove('gradient-effect');}, 1000);
-    
+    setTimeout(() => { targetDiv.classList.remove('gradient-effect'); }, 1000);
+
   };
 
 
   return (
     <div id="playerHome" style={homeStyle}>
-      <div className={`pawnDiv ${props.bgColor}`} id={props.bgColor} style={pawnCSS} >
+      <div className={`pawnDiv ${props.bgColor}`} id={props.bgColor} style={pawnDivCSS} >
         {props.pawnArray.map((elem, index) => (
-          <div key={props.bgColor + index} className='singlePawn' onClick={(e) => playAnimation(e, index)}>
-            {props.pawn}
+          <div key={props.bgColor + index} className='singlePawn pawnHomeDiv' onClick={(e) => playAnimation(e, index)} style={pawnCSS}>
+              <div className={`pawn ${pawnClass}`} id={index} ></div>
           </div>
         ))}
       </div>

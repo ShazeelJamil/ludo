@@ -5,13 +5,12 @@
     justify-items: center;
     width: 70%;
     margin: 70px auto ;
-    
  }  
-.singlePawn
-{
-    margin: 5px;
-}
-/* .pawnDiv >*
+ .singlePawn {
+     margin: 5px;
+ }
+
+ /* .pawnDiv >*
 {
     display: inline-block;
      border: 1px solid black;

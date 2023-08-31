@@ -1,9 +1,67 @@
 .display
 {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     background-color: rgb(173, 173, 173);
-    height: 90vh;
+    max-height: 90vh;
+    min-height: 90vh;
+    
     /* align-content: center; */
     justify-content: center;
+    background-image: linear-gradient(to bottom, rgb(241, 0, 0) , rgb(32, 32, 222));
+    border-radius: 8px;
 
 }
+.display-container
+{
+    margin: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    min-width: 400px;
+    color: aliceblue;
+    padding: 10px;
+}
+#heading {
+    text-align: center;
+}
+#selectPlayerText
+{
+    max-height: min-content;
+    margin-top: 2px;
+    margin-bottom: -10px;   
+}
+#noOfPlayers
+{
+    /* border: 1px solid black; */
+    display: grid;
+    grid-template-columns: auto 10% auto;
+    grid-gap: 10px;
+    margin-bottom: 20px;
+}
+#textboxes
+{
+    text-align: center;
+    background-color: rgb(249, 153, 153);
+
+}
+#noOfPlayers > * {
+    border-radius: 5px; /* You can adjust the value as needed */
+}
+#activePlayers
+{
+    display: grid;
+    grid-template-columns: 50% auto auto;
+    grid-gap: 10px;
+
+    border: 1px solid white;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.editText
+{
+    color: rgb(242, 146, 82);   
+}
+.editText:hover
+{
+    cursor: pointer;
+}
+
