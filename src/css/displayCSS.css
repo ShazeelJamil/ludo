@@ -32,9 +32,10 @@
 {
     /* border: 1px solid black; */
     display: grid;
-    grid-template-columns: auto 10% auto;
+    grid-template-columns: auto 30% ;
     grid-gap: 10px;
-    margin-bottom: 20px;
+    margin: 15px;
+    margin-bottom:20px ;
 }
 #textboxes
 {
@@ -48,10 +49,10 @@
 #activePlayers
 {
     display: grid;
-    grid-template-columns: 50% auto auto;
+    grid-template-columns: auto auto auto;
     grid-gap: 10px;
 
-    border: 1px solid white;
+    /* border: 1px solid white; */
     justify-content: space-around;
     align-items: center;
 
@@ -63,5 +64,18 @@
 .editText:hover
 {
     cursor: pointer;
+}
+.dicesContainer
+{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: space-around;
+}
+#dice
+{
+    border-radius: 5px;
+
 }
 

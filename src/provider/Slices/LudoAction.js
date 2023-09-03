@@ -1,39 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export const LudoAction=createSlice({
+export const LudoAction = createSlice({
 
-    name:"ludo",
-    initialState:{
+    name: "ludo",
+    initialState: {
         states: {
-        red:['H','H','H','H'],
-        yellow:['H','H','H','H'],
-        green:['H','H','H','H'],
-        blue:['H','H','H','H']
-        }
+            red: ['H', 'H', 'H', 'H'],
+            yellow: ['H', 'H', 'H', 'H'],
+            green: ['H', 'H', 'H', 'H'],
+            blue: ['H', 'H', 'H', 'H']
+        },
+        score: 0,
     },
-    reducers:{
+    reducers: {
         begin: (state, action) => {
-            var player=action.payload['player']
-            var index=action.payload['index']
+            var player = action.payload['player']
+            var index = action.payload['index']
             state.states[player][index] = "O"
 
-            console.log(JSON.stringify(state.states[player]))
+            // console.log(JSON.stringify(state.states[player]))
 
         },
-        kill:(state, action) => {
-            var player=action.payload['player']
-            var index=action.payload['index']
+        kill: (state, action) => {
+            var player = action.payload['player']
+            var index = action.payload['index']
             state.states[player][index] = "D"
 
-            console.log(JSON.stringify(state.states[player]))
+            // console.log(JSON.stringify(state.states[player]))
 
         },
-        pass: (state, action)=>{
-            var player=action.payload['player']
+        pass: (state, action) => {
+            var player = action.payload['player']
             return state.states[player].every(entry => entry === "P")
+        },
+        setScore: (state, action) => {
+            var score = action.payload['score']
+            state.score = score
+            // console.log("score-> " + typeof (score)+"-----" + score)
         }
     }
 })
 
-export const { begin, kill, pass } = LudoAction.actions
+export const { begin, kill, pass, setScore } = LudoAction.actions

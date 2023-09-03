@@ -4,6 +4,7 @@ import pawnDivCSS from "../css/playerHomeCss.css";
 import chroma from 'chroma-js';
 import { useDispatch } from 'react-redux'
 import { begin, kill } from '../provider/Slices/LudoAction';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 
 export default function PlayerHome(props) {
@@ -25,23 +26,29 @@ export default function PlayerHome(props) {
 
   const dispatch = useDispatch()
 
-  function enableOnTheWay(player,pawnindex) 
-  {
-    const action={
+  const score = useSelector((state) => state.ludo.score)
+
+  function enableOnTheWay(player, pawnindex) {
+    const action = {
       player: player,
       index: pawnindex,
     }
     dispatch(begin(action));
   }
-  function enableKill(player,pawnindex) 
-  {
-    const action={
+  function enableKill(player, pawnindex) {
+    const action = {
       player: player,
       index: pawnindex,
     }
     dispatch(kill(action));
   }
-  
+
+  function isAtCriticalPoint(id) {
+    return (id === 7 || id === 25 || id === 43 || id === 61)
+    // return ((start < 8 && end > 12) || (start < 26 && end > 30) || (start < 44 && end > 48) || (start < 62 && end > 66));
+  }
+
+
 
   const playAnimation = (event, index) => {
 
@@ -54,26 +61,30 @@ export default function PlayerHome(props) {
     if (colorName === '#ec0303') { colorName = "red"; }
     else if (colorName === '#e0f613') { colorName = "yellow"; }
 
-    var inc = 1;
+    var inc = score;
 
-    var targetDivId;
-    if (targetPawn.parentElement.className.includes("pawnHomeDiv")) {
+    var currentDivId, targetDivId;
+    if (targetPawn.parentElement.className.includes("pawnHomeDiv") && score === 6) {
       targetDivId = "32"; //green
       if (colorName === 'red') { targetDivId = "14" }
       else if (colorName === 'yellow') { targetDivId = "68" }
       else if (colorName === 'blue') { targetDivId = "50" }
-        
+
       enableOnTheWay(colorName, targetPawn.id)
     }
     else {
 
-      targetDivId = parseInt(targetPawn.parentElement.id)
-      targetDivId = (targetDivId + inc) % 72
+      currentDivId = parseInt(targetPawn.parentElement.id)
+      targetDivId = (currentDivId + inc) % 72
 
       var tarDiv = document.getElementById(targetDivId);
 
-      if (isInHome(targetDivId) && !tarDiv.classList[1].includes(colorName)) // check if it about to be in home and to check if the right pawns enters the home
-      { targetDivId += 5; }
+      if (isInHome(targetDivId) && !tarDiv.classList[1].includes(colorName)) { // check if it about to be in home and to check if the right pawns enters the home
+        targetDivId += 5;
+      }
+      if (score === 6 && isAtCriticalPoint(currentDivId) && !tarDiv.classList[1].includes(colorName)) { // to make the movement of pawns in case if 6 score
+        targetDivId += 5;
+      }
       targetDivId = targetDivId === 0 ? 72 : targetDivId
       targetDivId = targetDivId.toString()
     }
@@ -114,7 +125,7 @@ export default function PlayerHome(props) {
         homeDiv.classList.add("pawnHomeDiv");
         // homeDiv.style.border = "1px solid black"
         homeDiv.appendChild(lastChild)
-               
+
         enableKill(homeDivClass, lastChild.id)
 
       }
@@ -136,7 +147,7 @@ export default function PlayerHome(props) {
       <div className={`pawnDiv ${props.bgColor}`} id={props.bgColor} style={pawnDivCSS} >
         {props.pawnArray.map((elem, index) => (
           <div key={props.bgColor + index} className='singlePawn pawnHomeDiv' onClick={(e) => playAnimation(e, index)} style={pawnCSS}>
-              <div className={`pawn ${pawnClass}`} id={index} ></div>
+            <div className={`pawn ${pawnClass}`} id={index} ></div>
           </div>
         ))}
       </div>
