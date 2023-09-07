@@ -13,21 +13,6 @@ import { setScore, setCurrentPlayerCount } from '../provider/Slices/LudoAction';
 
 export default function Display() {
 
-
-
-
-  const disableAll = () => {
-    for (let i = 0; i < 4; i += 2) {
-      var elem = player[i];
-      for (let j = 0; j < 4; j += 2) {
-        const div = document.getElementById(elem + j);
-        div.style.opacity = "50%"
-        div.style.pointerEvents = "none";
-      }
-    }
-
-  }
-
   // document.addEventListener("DOMContentLoaded", function () {
   //   disableAll();
   //   console.log("DOM is ready.");
@@ -48,7 +33,7 @@ export default function Display() {
   const states = useSelector((state) => state.ludo.states)
 
   var player = ['red', 'green', 'blue', 'yellow'];
-  if (PlayerCount === 2) player = ['Red', 'Blue', 'Red', 'Blue']
+  if (PlayerCount === 2) player = ['red', 'blue', 'red', 'blue']
 
   // window.onload = function () {
   //   console.log("DOM is ready.")
@@ -65,7 +50,18 @@ export default function Display() {
   //   }
   // }
 
+  const disableAll = () => {
+    var playerTemp = ['red', 'green', 'blue', 'yellow']; // this is to disable all the pawn even of  PlayerCount is 2
+    for (let i = 0; i < 4; i++) {
+      var elem = playerTemp[i];
+      for (let j = 0; j < 4; j++) {
+        const div = document.getElementById(elem + j);
+        div.style.opacity = "50%"
+        div.style.pointerEvents = "none";
+      }
+    }
 
+  }
 
   const handlePlayerCountChange = (event) => {
     const newValue = parseInt(event.target.value);
