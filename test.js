@@ -5,6 +5,6 @@ states={
     blue:['P','P','P','P']
 }
 
-var player="green"
+var player='red'
 var index=2
 console.log(states[player][index])

@@ -7,45 +7,74 @@ import four from '../imgs/4.jpg'
 import five from '../imgs/5.jpg'
 import six from '../imgs/6.jpg'
 import rolling from '../imgs/dice.gif'
-import { useDispatch } from 'react-redux'
-import { setScore } from '../provider/Slices/LudoAction';
+import { useDispatch, useSelector } from 'react-redux'
+import { setScore, setCurrentPlayerCount } from '../provider/Slices/LudoAction';
 
 
 export default function Display() {
+
+
+
+
+  const disableAll = () => {
+    for (let i = 0; i < 4; i += 2) {
+      var elem = player[i];
+      for (let j = 0; j < 4; j += 2) {
+        const div = document.getElementById(elem + j);
+        div.style.opacity = "50%"
+        div.style.pointerEvents = "none";
+      }
+    }
+
+  }
+
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   disableAll();
+  //   console.log("DOM is ready.");
+  // });
+
+
   const [PlayerCount, setPlayerCount] = useState(4);
+  const [counter, setCounter] = useState(0)
 
   const [firstplayer, setfirstplayer] = useState("Player 1");
   const [secondplayer, setsecondplayer] = useState("Player 2");
   const [thirdplayer, setthirdplayer] = useState("Player 3");
   const [fourthplayer, setfourthplayer] = useState("Player 4");
 
+  const [CurrentPlayer, setCurrentPlayer] = useState("")
+
   const dispatch = useDispatch()
+  const states = useSelector((state) => state.ludo.states)
+
+  var player = ['red', 'green', 'blue', 'yellow'];
+  if (PlayerCount === 2) player = ['Red', 'Blue', 'Red', 'Blue']
+
+  // window.onload = function () {
+  //   console.log("DOM is ready.")
+  //   for (let i = 0; i < 4; i++) {
+  //     var elem = player[i];
+  //     for (let j = 0; j < 4; j++) {
+  //       var el = states[elem][j]
+  //       if (el !== "O") {
+  //         const div = document.getElementById(elem + j);
+  //         div.style.opacity = "50%"
+  //         div.style.pointerEvents = "none";
+  //       }
+  //     }
+  //   }
+  // }
+
 
 
   const handlePlayerCountChange = (event) => {
     const newValue = parseInt(event.target.value);
     setPlayerCount(newValue);
 
-    var greenDiv, yellowDiv;
-    if (PlayerCount === 4) {
-      greenDiv = document.getElementById("green");
-      greenDiv.style.opacity = "30%"
-      greenDiv.style.pointerEvents = "none";
-
-      yellowDiv = document.getElementById("yellow");
-      yellowDiv.style.opacity = "30%"
-      yellowDiv.style.pointerEvents = "none";
+    const action = {
+      playerCount: PlayerCount
     }
-    else {
-      greenDiv = document.getElementById("green");
-      greenDiv.style.opacity = "100%"
-      greenDiv.style.pointerEvents = "auto";
-
-      yellowDiv = document.getElementById("yellow");
-      yellowDiv.style.opacity = "100%"
-      yellowDiv.style.pointerEvents = "auto";
-
-    }
+    dispatch(setCurrentPlayerCount(action))
   };
 
   const enablePlayerNameChange = (event) => {
@@ -62,7 +91,7 @@ export default function Display() {
     player.focus();
   }
 
-  const handlePlayerNameChange  = (event) => {
+  const handlePlayerNameChange = (event) => {
 
     const clickedElement = event.target;
     const player_id = clickedElement.getAttribute("data-playerno");
@@ -76,8 +105,29 @@ export default function Display() {
     else setfourthplayer(newValue);
   };
 
+  const enableClickOf = (playerColor, onlyActives = false) => {
+
+    if (onlyActives) {
+      for (var i = 0; i < 4; i++) {
+        if (states[playerColor][i] === "O") {
+          var onlyActiveDiv = document.getElementById(playerColor + i);
+          onlyActiveDiv.style.opacity = "100%"
+          onlyActiveDiv.style.pointerEvents = "auto";
+        }
+      }
+    }
+    else {
+      for (var j = 0; j < 4; j++) {
+        var div = document.getElementById(playerColor + j);
+        div.style.opacity = "100%"
+        div.style.pointerEvents = "auto";
+      }
+    }
+  }
+
   const handleDiceClick = async (event) => {
 
+    disableAll();
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     var image = event.target
     image.src = rolling
@@ -90,12 +140,23 @@ export default function Display() {
     else if (randomNumber === 3) image.src = three
     else if (randomNumber === 4) image.src = four
     else if (randomNumber === 5) image.src = five
-    else image.src = six
+    else image.src = six;
 
-    const action ={
-      score:randomNumber
+    const action = {
+      score: randomNumber
     }
     dispatch(setScore(action))
+
+    setCurrentPlayer(player[counter])
+    setCounter((counter + 1) % 4)
+
+    // console.log("state of "+ CurrentPlayer + " is "+states[(CurrentPlayer).toLowerCase()])
+
+    // console.log("current player---->>>>>> "+ CurrentPlayer +"\nrandom--" + randomNumber )
+    if (randomNumber === 6) { enableClickOf(CurrentPlayer) }
+    else { enableClickOf(CurrentPlayer, true) }
+
+    // dispatch(setScore(0))
   }
 
 
@@ -107,12 +168,11 @@ export default function Display() {
         <div id='noOfPlayers'>
           <span id='selectPlayerText'>Select no of players: </span>
           <select id="textboxes" onChange={handlePlayerCountChange} >
-            <option value="2" >2</option>
             <option value="4" >4</option>
+            <option value="2" >2</option>
           </select>
           {/* <button type="button" id='' className="btn btn-primary"  >Apply {PlayerCount} Players Game</button> */}
         </div>
-
 
         <div id='activePlayers'>
           {PlayerCount === 2 ?
@@ -121,7 +181,7 @@ export default function Display() {
               <span className='editText' data-playerno='1' onClick={enablePlayerNameChange} >edit name</span>
               <p>Red</p>
 
-              <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{thirdplayer}:</p>
+              <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{secondplayer}:</p>
               <span className='editText' data-playerno='2' onClick={enablePlayerNameChange} >edit name</span>
               <p>Blue</p>
             </> :
@@ -147,14 +207,9 @@ export default function Display() {
         </div>
 
         <div className="dicesContainer" >
-          <h6> Player's Turn </h6>
+          <h6>{CurrentPlayer.toUpperCase()} Player's Turn </h6>
           <img src={rolling} id='dice' alt='dice' height='80px' width='80px' onClick={handleDiceClick} />
         </div>
-
-
-
-
-
 
       </div>
 

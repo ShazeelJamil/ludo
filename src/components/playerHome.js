@@ -3,6 +3,7 @@ import pawnCSS from '../css/pawnCSS.css'
 import pawnDivCSS from "../css/playerHomeCss.css";
 import chroma from 'chroma-js';
 import { useDispatch } from 'react-redux'
+// eslint-disable-next-line
 import { begin, kill } from '../provider/Slices/LudoAction';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
@@ -25,8 +26,9 @@ export default function PlayerHome(props) {
   }
 
   const dispatch = useDispatch()
-
   const score = useSelector((state) => state.ludo.score)
+
+  // const pawnState = useSelector((state) => state.ludo.states)
 
   function enableOnTheWay(player, pawnindex) {
     const action = {
@@ -42,11 +44,11 @@ export default function PlayerHome(props) {
     }
     dispatch(kill(action));
   }
-
   function isAtCriticalPoint(id) {
     return (id === 7 || id === 25 || id === 43 || id === 61)
-    // return ((start < 8 && end > 12) || (start < 26 && end > 30) || (start < 44 && end > 48) || (start < 62 && end > 66));
   }
+
+
 
 
 
@@ -63,6 +65,7 @@ export default function PlayerHome(props) {
 
     var inc = score;
 
+    const targetPawnIndex = targetPawn.classList[2];
     var currentDivId, targetDivId;
     if (targetPawn.parentElement.className.includes("pawnHomeDiv") && score === 6) {
       targetDivId = "32"; //green
@@ -70,7 +73,8 @@ export default function PlayerHome(props) {
       else if (colorName === 'yellow') { targetDivId = "68" }
       else if (colorName === 'blue') { targetDivId = "50" }
 
-      enableOnTheWay(colorName, targetPawn.id)
+
+      enableOnTheWay(colorName, targetPawnIndex)
     }
     else {
 
@@ -123,11 +127,10 @@ export default function PlayerHome(props) {
         // console.log("homeDivClass - ", homeDivClass)
         var homeDiv = document.getElementById(homeDivClass)
         homeDiv.classList.add("pawnHomeDiv");
+
         // homeDiv.style.border = "1px solid black"
         homeDiv.appendChild(lastChild)
-
-        enableKill(homeDivClass, lastChild.id)
-
+        enableKill(homeDivClass, targetPawnIndex)
       }
 
     }
@@ -147,7 +150,7 @@ export default function PlayerHome(props) {
       <div className={`pawnDiv ${props.bgColor}`} id={props.bgColor} style={pawnDivCSS} >
         {props.pawnArray.map((elem, index) => (
           <div key={props.bgColor + index} className='singlePawn pawnHomeDiv' onClick={(e) => playAnimation(e, index)} style={pawnCSS}>
-            <div className={`pawn ${pawnClass}`} id={index} ></div>
+            <div className={`pawn pawn${props.bgColor} ${pawnClass} ${index}`} id={props.bgColor+index} ></div>
           </div>
         ))}
       </div>

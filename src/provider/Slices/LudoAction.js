@@ -12,6 +12,7 @@ export const LudoAction = createSlice({
             blue: ['H', 'H', 'H', 'H']
         },
         score: 0,
+        playerCount: 4
     },
     reducers: {
         begin: (state, action) => {
@@ -38,8 +39,12 @@ export const LudoAction = createSlice({
             var score = action.payload['score']
             state.score = score
             // console.log("score-> " + typeof (score)+"-----" + score)
-        }
+        },
+        setCurrentPlayerCount: (state, action) => {
+            var PlayerCount = action.payload['playerCount']
+            state.playerCount = PlayerCount
+        },
     }
 })
 
-export const { begin, kill, pass, setScore } = LudoAction.actions
+export const { begin, kill, pass, setScore, setCurrentPlayerCount } = LudoAction.actions
