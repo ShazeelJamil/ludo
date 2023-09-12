@@ -57,7 +57,7 @@ export default function PlayerHome(props) {
 
   const playAnimation = (event, index) => {
 
-    if (score === 0) return;
+    // if (score === 0) return;
 
     var targetPawn = event.target
     var computedStyle = window.getComputedStyle(targetPawn);
@@ -69,12 +69,13 @@ export default function PlayerHome(props) {
     else if (colorName === '#e0f613') { colorName = "yellow"; }
 
 
-    var inc = score;
-    
+    // var inc = score;
+    var inc = 6;
+
 
     const targetPawnIndex = targetPawn.classList[2];
     var currentDivId, targetDivId;
-    if (targetPawn.parentElement.className.includes("pawnHomeDiv") && score === 6) {
+    if (targetPawn.parentElement.className.includes("pawnHomeDiv") /*&& score === 6*/) {
       targetDivId = "32"; //green
       if (colorName === 'red') { targetDivId = "14" }
       else if (colorName === 'yellow') { targetDivId = "68" }
@@ -94,7 +95,7 @@ export default function PlayerHome(props) {
       if (isInHome(targetDivId) && !tarDiv.classList[1].includes(colorName)) { // check if it about to be in home and to check if the right pawns enters the home
         targetDivId += 5;
       }
-      if (score === 6 && isAtCriticalPoint(currentDivId) && !tarDiv.classList[1].includes(colorName)) { // to make the movement of pawns in case if 6 score
+      if (inc === 6 && isAtCriticalPoint(currentDivId) && !(tarDiv.classList[1].includes(colorName))) { // to make the movement of pawns in case if 6 score
         targetDivId += 5;
       }
       targetDivId = targetDivId === 0 ? 72 : targetDivId
@@ -155,8 +156,7 @@ export default function PlayerHome(props) {
 
     targetDiv.appendChild(targetPawn);
     setTimeout(() => { targetDiv.classList.remove('gradient-effect'); }, 1000);
-
-    score = 0;
+    // score = 0;
   };
 
 
