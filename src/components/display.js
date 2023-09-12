@@ -59,6 +59,7 @@ export default function Display() {
         div.style.opacity = "50%"
         div.style.pointerEvents = "none";
       }
+      document.getElementById(elem).style.pointerEvents = "none";
     }
 
   }
@@ -146,13 +147,9 @@ export default function Display() {
     setCurrentPlayer(player[counter])
     setCounter((counter + 1) % 4)
 
-    // console.log("state of "+ CurrentPlayer + " is "+states[(CurrentPlayer).toLowerCase()])
-
-    // console.log("current player---->>>>>> "+ CurrentPlayer +"\nrandom--" + randomNumber )
     if (randomNumber === 6) { enableClickOf(CurrentPlayer) }
     else { enableClickOf(CurrentPlayer, true) }
 
-    // dispatch(setScore(0))
   }
 
 

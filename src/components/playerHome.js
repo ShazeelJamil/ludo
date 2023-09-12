@@ -3,8 +3,7 @@ import pawnCSS from '../css/pawnCSS.css'
 import pawnDivCSS from "../css/playerHomeCss.css";
 import chroma from 'chroma-js';
 import { useDispatch } from 'react-redux'
-// eslint-disable-next-line
-import { begin, kill } from '../provider/Slices/LudoAction';
+import { begin, kill, passThisPawn } from '../provider/Slices/LudoAction';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 
@@ -26,7 +25,7 @@ export default function PlayerHome(props) {
   }
 
   const dispatch = useDispatch()
-  const score = useSelector((state) => state.ludo.score)
+  var score = useSelector((state) => state.ludo.score)
 
   // const pawnState = useSelector((state) => state.ludo.states)
 
@@ -44,15 +43,21 @@ export default function PlayerHome(props) {
     }
     dispatch(kill(action));
   }
+  function passThis(player, pawnindex) {
+    const action = {
+      player: player,
+      index: pawnindex,
+    }
+    dispatch(passThisPawn(action));
+  }
   function isAtCriticalPoint(id) {
     return (id === 7 || id === 25 || id === 43 || id === 61)
   }
 
 
-
-
-
   const playAnimation = (event, index) => {
+
+    if (score === 0) return;
 
     var targetPawn = event.target
     var computedStyle = window.getComputedStyle(targetPawn);
@@ -63,7 +68,9 @@ export default function PlayerHome(props) {
     if (colorName === '#ec0303') { colorName = "red"; }
     else if (colorName === '#e0f613') { colorName = "yellow"; }
 
+
     var inc = score;
+    
 
     const targetPawnIndex = targetPawn.classList[2];
     var currentDivId, targetDivId;
@@ -79,6 +86,7 @@ export default function PlayerHome(props) {
     else {
 
       currentDivId = parseInt(targetPawn.parentElement.id)
+
       targetDivId = (currentDivId + inc) % 72
 
       var tarDiv = document.getElementById(targetDivId);
@@ -91,6 +99,12 @@ export default function PlayerHome(props) {
       }
       targetDivId = targetDivId === 0 ? 72 : targetDivId
       targetDivId = targetDivId.toString()
+
+      if (colorName === "red" && currentDivId + score === 13) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
+      else if (colorName === "green" && currentDivId + score === 31) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
+      else if (colorName === "blue" && currentDivId + score === 49) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
+      else if (colorName === "yellow" && currentDivId + score === 67) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
+
     }
 
     if (targetPawn.parentElement.id === targetDivId) return; // source and dstination are same
@@ -99,7 +113,7 @@ export default function PlayerHome(props) {
     targetDiv.classList.add("gradient-effect")
     targetPawn.classList.add("multipleDisplay")
 
-    if (targetDiv.hasChildNodes()) {
+    if (targetDiv.hasChildNodes() && targetDivId !== "home") {
 
       var lastChild = targetDiv.lastElementChild;
 
@@ -116,7 +130,7 @@ export default function PlayerHome(props) {
 
       var isAtStop = (props.unkillables).some(row => row.includes(parseInt(targetDiv.id))); //to check if the openents pawn is at unkillable stop
 
-      if (!isAtStop && countOfPawns < 2 && lastChild.className !== targetPawn.className) { // to kill another pawn 
+      if (!isAtStop && countOfPawns < 2 && lastChild.classList[1] !== targetPawn.classList[1]) { // to kill another pawn 
 
         var homeDivClass = lastChild.classList[1]
         if (homeDivClass === 'pawnred') { homeDivClass = "red" }
@@ -142,6 +156,7 @@ export default function PlayerHome(props) {
     targetDiv.appendChild(targetPawn);
     setTimeout(() => { targetDiv.classList.remove('gradient-effect'); }, 1000);
 
+    score = 0;
   };
 
 
@@ -150,7 +165,7 @@ export default function PlayerHome(props) {
       <div className={`pawnDiv ${props.bgColor}`} id={props.bgColor} style={pawnDivCSS} >
         {props.pawnArray.map((elem, index) => (
           <div key={props.bgColor + index} className='singlePawn pawnHomeDiv' onClick={(e) => playAnimation(e, index)} style={pawnCSS}>
-            <div className={`pawn pawn${props.bgColor} ${pawnClass} ${index}`} id={props.bgColor+index} ></div>
+            <div className={`pawn pawn${props.bgColor} ${pawnClass} ${index}`} id={props.bgColor + index} ></div>
           </div>
         ))}
       </div>

@@ -29,7 +29,13 @@ export const LudoAction = createSlice({
             state.states[player][index] = "D"
 
             // console.log(JSON.stringify(state.states[player]))
+        },
+        passThisPawn: (state, action) => {
+            var player = action.payload['player']
+            var index = action.payload['index']
+            state.states[player][index] = "P"
 
+            console.log(JSON.stringify(state.states[player]))
         },
         pass: (state, action) => {
             var player = action.payload['player']
@@ -47,4 +53,4 @@ export const LudoAction = createSlice({
     }
 })
 
-export const { begin, kill, pass, setScore, setCurrentPlayerCount } = LudoAction.actions
+export const { begin, kill, pass, passThisPawn, setScore, setCurrentPlayerCount } = LudoAction.actions
