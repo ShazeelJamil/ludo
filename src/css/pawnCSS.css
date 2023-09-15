@@ -6,6 +6,7 @@
     
 }
 
+
 .pawn:hover{
     transform: translate(-3px,-3px);
     cursor: pointer;

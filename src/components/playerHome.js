@@ -57,7 +57,7 @@ export default function PlayerHome(props) {
 
   const playAnimation = (event, index) => {
 
-    // if (score === 0) return;
+    // if (score === 0) return;      //uncomment this after testing
 
     var targetPawn = event.target
     var computedStyle = window.getComputedStyle(targetPawn);
@@ -69,9 +69,8 @@ export default function PlayerHome(props) {
     else if (colorName === '#e0f613') { colorName = "yellow"; }
 
 
-    // var inc = score;
-    var inc = 6;
-
+    // var inc = score;            //uncomment this after testing
+    var inc = 1;
 
     const targetPawnIndex = targetPawn.classList[2];
     var currentDivId, targetDivId;
@@ -83,7 +82,7 @@ export default function PlayerHome(props) {
 
 
       enableOnTheWay(colorName, targetPawnIndex)
-    }
+    }                                                                       //^//uncomment this after testing
     else {
 
       currentDivId = parseInt(targetPawn.parentElement.id)
@@ -108,7 +107,8 @@ export default function PlayerHome(props) {
 
     }
 
-    if (targetPawn.parentElement.id === targetDivId) return; // source and dstination are same
+    // if (targetPawn.parentElement.id === targetDivId) return; // source and dstination are same
+    if (targetPawn.id === targetDivId) return; // source and dstination are same
     var targetDiv = document.getElementById(targetDivId);
 
     targetDiv.classList.add("gradient-effect")
@@ -130,7 +130,7 @@ export default function PlayerHome(props) {
       var countOfPawns = targetDiv.childElementCount;
 
       var isAtStop = (props.unkillables).some(row => row.includes(parseInt(targetDiv.id))); //to check if the openents pawn is at unkillable stop
-
+      // console.log('---out----------------')
       if (!isAtStop && countOfPawns < 2 && lastChild.classList[1] !== targetPawn.classList[1]) { // to kill another pawn 
 
         var homeDivClass = lastChild.classList[1]
@@ -139,13 +139,16 @@ export default function PlayerHome(props) {
         else if (homeDivClass === 'pawnblue') { homeDivClass = "blue" }
         else if (homeDivClass === 'pawnyellow') { homeDivClass = "yellow" }
 
-        // console.log("homeDivClass - ", homeDivClass)
-        var homeDiv = document.getElementById(homeDivClass)
-        homeDiv.classList.add("pawnHomeDiv");
 
-        // homeDiv.style.border = "1px solid black"
-        homeDiv.appendChild(lastChild)
-        enableKill(homeDivClass, targetPawnIndex)
+        var homeDiv = document.getElementById(homeDivClass)
+        // console.log('--in-----------------'+homeDiv)
+        // homeDiv.classList.add("pawnHomeDiv");
+
+    
+        lastChild.classList.remove("multipleDisplay")
+        homeDiv.appendChild(lastChild)        
+        enableKill(homeDivClass, lastChild.classList[2])
+        
       }
 
     }
@@ -155,19 +158,41 @@ export default function PlayerHome(props) {
     }
 
     targetDiv.appendChild(targetPawn);
+    targetPawn.style.left = '1'
+    targetPawn.zIndex = 1;
     setTimeout(() => { targetDiv.classList.remove('gradient-effect'); }, 1000);
-    // score = 0;
+    // score = 0;     //uncomment this after testing
   };
 
 
   return (
     <div id="playerHome" style={homeStyle}>
-      <div className={`pawnDiv ${props.bgColor}`} id={props.bgColor} style={pawnDivCSS} >
-        {props.pawnArray.map((elem, index) => (
-          <div key={props.bgColor + index} className='singlePawn pawnHomeDiv' onClick={(e) => playAnimation(e, index)} style={pawnCSS}>
-            <div className={`pawn pawn${props.bgColor} ${pawnClass} ${index}`} id={props.bgColor + index} ></div>
-          </div>
-        ))}
+      <div className={`pawnDiv ${props.bgColor} pawnHomeDiv`} id={props.bgColor} style={pawnDivCSS} >
+        {props.pawnArray.map((elem, index) => {
+          if (elem === "H" ||elem === "D"|| elem === "O")
+            return (
+              <div key={props.bgColor + index} className={`pawn pawn${props.bgColor} ${pawnClass} ${index} singlePawn`} id={props.bgColor + index} onClick={(e) => playAnimation(e, index)} style={pawnCSS} >{index}</div>
+            )
+          else { return (<p  key={props.bgColor + index} >no</p>) }
+        })}
+
+
+        {/* {props.pawnArray.map((elem, index) => {
+          return (
+            <div key={props.bgColor + index} className='singlePawn pawnHomeDiv' onClick={(e) => playAnimation(e, index)} style={pawnCSS}>
+              <div className={`pawn pawn${props.bgColor} ${pawnClass} ${index}`} id={props.bgColor + index} >{index}</div>
+            </div>
+          )
+        })} */}
+
+
+
+
+
+
+
+
+
       </div>
     </div>
 

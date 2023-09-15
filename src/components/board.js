@@ -4,8 +4,9 @@ import Pathways from '../components/pathway.js'
 import PlayerHome from './playerHome.js'
 import Home from './Home'
 import Pawn from './pawn'
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
-export default function board() {
+export default function Board() {
     var redStop = [
         [13, 14, 15, 16, 17, 18],
         [7, 8, 9, 10, 11, 12],
@@ -39,22 +40,26 @@ export default function board() {
     var yellowUnkillableStops = [58, 68, 62, 63, 64, 65, 66];
 
 
-    var unkillables =
-        [
-            yellowUnkillableStops,
-            blueUnkillableStops,
-            greenUnkillableStops,
-            redUnkillableStops
-        ]
+    var unkillables =[
+        yellowUnkillableStops,
+        blueUnkillableStops,
+        greenUnkillableStops,
+        redUnkillableStops
+    ]
+
+
+    const states = useSelector((state) => state.ludo.states)
+
+    
 
     return (
         <>
             <div className="board" style={boardCSS}>
 
                 <div className='container1' >
-                    <PlayerHome bgColor="red" pawncolor="red" pawn={<Pawn pawncolor="red" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="red" pawncolor="red" pawn={<Pawn pawncolor="red" />} unkillables={unkillables} pawnArray={states["red"]} /> 
                     <Pathways stops={redStop} highlighted={redUnkillableStops} stopcolor="redstops" layout="horizontal" color='red' />
-                    <PlayerHome bgColor="yellow"pawncolor="yellow" pawn={<Pawn pawncolor="yellow" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="yellow"pawncolor="yellow" pawn={<Pawn pawncolor="yellow" />} unkillables={unkillables} pawnArray={states["yellow"]} />
                 </div>
                 <div className="container2">
                     <Pathways stops={greenStop} highlighted={greenUnkillableStops} stopcolor="greenstops" color='green' />
@@ -63,9 +68,9 @@ export default function board() {
                 </div>
 
                 <div className="container3">
-                    <PlayerHome bgColor="green" pawncolor="green" pawn={<Pawn pawncolor="green" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="green" pawncolor="green" pawn={<Pawn pawncolor="green" />} unkillables={unkillables} pawnArray={states["green"]} />
                     <Pathways stops={blueStop} highlighted={blueUnkillableStops} stopcolor="bluestops" layout="horizontal" color='blue' />
-                    <PlayerHome bgColor="blue" pawncolor="blue" color="white" pawn={<Pawn pawncolor="blue" />} unkillables={unkillables} pawnArray={['', '', '', '']} />
+                    <PlayerHome bgColor="blue" pawncolor="blue" color="white" pawn={<Pawn pawncolor="blue" />} unkillables={unkillables} pawnArray={states["blue"]} />
 
                 </div>
 
