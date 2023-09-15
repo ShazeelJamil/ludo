@@ -70,7 +70,7 @@ export default function PlayerHome(props) {
 
 
     // var inc = score;            //uncomment this after testing
-    var inc = 1;
+    var inc = 6;
 
     const targetPawnIndex = targetPawn.classList[2];
     var currentDivId, targetDivId;
@@ -117,6 +117,7 @@ export default function PlayerHome(props) {
     if (targetDiv.hasChildNodes() && targetDivId !== "home") {
 
       var lastChild = targetDiv.lastElementChild;
+      lastChild.style.left = 3;
 
       var lastChildLeft = lastChild.style.left || '0';
       var lastChildLeftValue = parseInt(lastChildLeft);
@@ -127,10 +128,11 @@ export default function PlayerHome(props) {
       targetPawn.style.left = newLeftOffset + 'px';
       targetPawn.zIndex = prev_z_index - 1;
 
+
       var countOfPawns = targetDiv.childElementCount;
 
       var isAtStop = (props.unkillables).some(row => row.includes(parseInt(targetDiv.id))); //to check if the openents pawn is at unkillable stop
-      // console.log('---out----------------')
+
       if (!isAtStop && countOfPawns < 2 && lastChild.classList[1] !== targetPawn.classList[1]) { // to kill another pawn 
 
         var homeDivClass = lastChild.classList[1]
@@ -141,16 +143,13 @@ export default function PlayerHome(props) {
 
 
         var homeDiv = document.getElementById(homeDivClass)
-        // console.log('--in-----------------'+homeDiv)
-        // homeDiv.classList.add("pawnHomeDiv");
 
-    
+
         lastChild.classList.remove("multipleDisplay")
-        homeDiv.appendChild(lastChild)        
+        homeDiv.appendChild(lastChild)
         enableKill(homeDivClass, lastChild.classList[2])
-        
-      }
 
+      }
     }
     else { //to stack one pawn over another pawn
       targetPawn.zIndex = -1;
@@ -158,8 +157,7 @@ export default function PlayerHome(props) {
     }
 
     targetDiv.appendChild(targetPawn);
-    targetPawn.style.left = '1'
-    targetPawn.zIndex = 1;
+
     setTimeout(() => { targetDiv.classList.remove('gradient-effect'); }, 1000);
     // score = 0;     //uncomment this after testing
   };
@@ -169,29 +167,10 @@ export default function PlayerHome(props) {
     <div id="playerHome" style={homeStyle}>
       <div className={`pawnDiv ${props.bgColor} pawnHomeDiv`} id={props.bgColor} style={pawnDivCSS} >
         {props.pawnArray.map((elem, index) => {
-          if (elem === "H" ||elem === "D"|| elem === "O")
-            return (
-              <div key={props.bgColor + index} className={`pawn pawn${props.bgColor} ${pawnClass} ${index} singlePawn`} id={props.bgColor + index} onClick={(e) => playAnimation(e, index)} style={pawnCSS} >{index}</div>
-            )
-          else { return (<p  key={props.bgColor + index} >no</p>) }
+          if (elem === "H" || elem === "D" || elem === "O")
+          { return (<div key={props.bgColor + index} className={`pawn pawn${props.bgColor} ${pawnClass} ${index} singlePawn`} id={props.bgColor + index} onClick={(e) => playAnimation(e, index)} style={pawnCSS} ></div>) }
+          else { return (<p key={props.bgColor + index} >no</p>) }
         })}
-
-
-        {/* {props.pawnArray.map((elem, index) => {
-          return (
-            <div key={props.bgColor + index} className='singlePawn pawnHomeDiv' onClick={(e) => playAnimation(e, index)} style={pawnCSS}>
-              <div className={`pawn pawn${props.bgColor} ${pawnClass} ${index}`} id={props.bgColor + index} >{index}</div>
-            </div>
-          )
-        })} */}
-
-
-
-
-
-
-
-
 
       </div>
     </div>
