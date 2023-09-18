@@ -7,10 +7,9 @@ export const ludoStore = configureStore({
     reducer: {
         [LudoAction.name]: LudoAction.reducer,
         [ludoQuery.reducerPath]: ludoQuery.reducer
-
         },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(ludoQuery.middleware),
-
+    getDefaultMiddleware().concat(ludoQuery.middleware),
+    
 })
 setupListeners(ludoStore.dispatch)

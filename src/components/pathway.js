@@ -15,7 +15,7 @@ export default function pathway(props) {
     <div className={divClass} style={PathwayCSS}  >
       {
         stops.map((row, rowIndex) => (
-          <>
+          < >
             {
               row.map(function (item, colIndex) {
                 var isHighlighted = hstops.includes(item)

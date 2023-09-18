@@ -3,7 +3,7 @@ import pawnCSS from '../css/pawnCSS.css'
 import pawnDivCSS from "../css/playerHomeCss.css";
 import chroma from 'chroma-js';
 import { useDispatch } from 'react-redux'
-import { begin, kill, passThisPawn } from '../provider/Slices/LudoAction';
+import { begin, kill, setRecentlyPassedpawn } from '../provider/Slices/LudoAction';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 
@@ -25,9 +25,9 @@ export default function PlayerHome(props) {
   }
 
   const dispatch = useDispatch()
+  // eslint-disable-next-line
   var score = useSelector((state) => state.ludo.score)
 
-  // const pawnState = useSelector((state) => state.ludo.states)
 
   function enableOnTheWay(player, pawnindex) {
     const action = {
@@ -43,16 +43,17 @@ export default function PlayerHome(props) {
     }
     dispatch(kill(action));
   }
-  function passThis(player, pawnindex) {
+  function setRecentyPas(elem) {
     const action = {
-      player: player,
-      index: pawnindex,
+      id: elem['id'],
+      className: elem['className'],
     }
-    dispatch(passThisPawn(action));
+    dispatch(setRecentlyPassedpawn(action));
   }
   function isAtCriticalPoint(id) {
     return (id === 7 || id === 25 || id === 43 || id === 61)
   }
+
 
 
   const playAnimation = (event, index) => {
@@ -70,7 +71,7 @@ export default function PlayerHome(props) {
 
 
     // var inc = score;            //uncomment this after testing
-    var inc = 6;
+    var inc = 7
 
     const targetPawnIndex = targetPawn.classList[2];
     var currentDivId, targetDivId;
@@ -91,20 +92,58 @@ export default function PlayerHome(props) {
 
       var tarDiv = document.getElementById(targetDivId);
 
-      if (isInHome(targetDivId) && !tarDiv.classList[1].includes(colorName)) { // check if it about to be in home and to check if the right pawns enters the home
-        targetDivId += 5;
-      }
-      if (inc === 6 && isAtCriticalPoint(currentDivId) && !(tarDiv.classList[1].includes(colorName))) { // to make the movement of pawns in case if 6 score
-        targetDivId += 5;
-      }
+      if (isInHome(targetDivId) && !tarDiv.classList[1].includes(colorName)) { targetDivId += 5 } // check if it about to be in home and to check if the right pawns enters the home
+
+      if (inc === 6 && isAtCriticalPoint(currentDivId) && !(tarDiv.classList[1].includes(colorName))) { targetDivId += 5 }// to make the movement of pawns in case if 6 score
+
       targetDivId = targetDivId === 0 ? 72 : targetDivId
       targetDivId = targetDivId.toString()
 
-      if (colorName === "red" && currentDivId + score === 13) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
-      else if (colorName === "green" && currentDivId + score === 31) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
-      else if (colorName === "blue" && currentDivId + score === 49) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
-      else if (colorName === "yellow" && currentDivId + score === 67) { targetDivId = "home"; dispatch(passThis(colorName, targetPawnIndex)) }
+      if (colorName === "red" && currentDivId + inc === 13) {
+        targetPawn.classList.remove("multipleDisplay")
+        const element = {
+          id: targetPawn.id,
+          className: targetPawn.classList,
+        }
+        setRecentyPas(element)
+        targetPawn.style.left = '-4px'
+        targetPawn.style.display = "none"
+        return;
+      }
+      else if (colorName === "green" && currentDivId + inc === 31) {
+        targetPawn.classList.remove("multipleDisplay")
+        const element = {
+          id: targetPawn.id,
+          className: targetPawn.classList,
+        }
+        setRecentyPas(element)
+        targetPawn.style.left = '-4px'
+        targetPawn.style.display = "none"
+        return;
+      }
+      else if (colorName === "blue" && currentDivId + inc === 49) {
+        targetPawn.classList.remove("multipleDisplay")
+        const element = {
+          id: targetPawn.id,
+          className: targetPawn.classList,
+        }
+        setRecentyPas(element)
+        targetPawn.style.left = '-4px'
+        targetPawn.style.display = "none"
+        return;
+      }
+      else if (colorName === "yellow" && currentDivId + inc === 67) {
+        targetPawn.classList.remove("multipleDisplay")
+        const element = {
+          id: targetPawn.id,
+          className: targetPawn.classList,
+        }
+        setRecentyPas(element)
+        targetPawn.style.left = '-4px'
+        targetPawn.style.display = "none"
+        return;
 
+      }
     }
 
     // if (targetPawn.parentElement.id === targetDivId) return; // source and dstination are same
@@ -116,8 +155,8 @@ export default function PlayerHome(props) {
 
     if (targetDiv.hasChildNodes() && targetDivId !== "home") {
 
+      console.log("inside kill machanism ")
       var lastChild = targetDiv.lastElementChild;
-      lastChild.style.left = 3;
 
       var lastChildLeft = lastChild.style.left || '0';
       var lastChildLeftValue = parseInt(lastChildLeft);
@@ -127,7 +166,6 @@ export default function PlayerHome(props) {
 
       targetPawn.style.left = newLeftOffset + 'px';
       targetPawn.zIndex = prev_z_index - 1;
-
 
       var countOfPawns = targetDiv.childElementCount;
 
@@ -141,19 +179,16 @@ export default function PlayerHome(props) {
         else if (homeDivClass === 'pawnblue') { homeDivClass = "blue" }
         else if (homeDivClass === 'pawnyellow') { homeDivClass = "yellow" }
 
-
         var homeDiv = document.getElementById(homeDivClass)
-
 
         lastChild.classList.remove("multipleDisplay")
         homeDiv.appendChild(lastChild)
         enableKill(homeDivClass, lastChild.classList[2])
-
       }
     }
     else { //to stack one pawn over another pawn
       targetPawn.zIndex = -1;
-      targetPawn.style.left = '5px';
+      targetPawn.style.left = '4px';
     }
 
     targetDiv.appendChild(targetPawn);
@@ -162,16 +197,13 @@ export default function PlayerHome(props) {
     // score = 0;     //uncomment this after testing
   };
 
-
   return (
     <div id="playerHome" style={homeStyle}>
       <div className={`pawnDiv ${props.bgColor} pawnHomeDiv`} id={props.bgColor} style={pawnDivCSS} >
         {props.pawnArray.map((elem, index) => {
-          if (elem === "H" || elem === "D" || elem === "O")
-          { return (<div key={props.bgColor + index} className={`pawn pawn${props.bgColor} ${pawnClass} ${index} singlePawn`} id={props.bgColor + index} onClick={(e) => playAnimation(e, index)} style={pawnCSS} ></div>) }
+          if (elem === "H" || elem === "D" || elem === "O") { return (<div key={props.bgColor + index} className={`pawn pawn${props.bgColor} ${pawnClass} ${index} singlePawn`} id={props.bgColor + index} onClick={(e) => playAnimation(e, index)} style={pawnCSS} ></div>) }
           else { return (<p key={props.bgColor + index} >no</p>) }
         })}
-
       </div>
     </div>
 

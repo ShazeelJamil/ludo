@@ -11,8 +11,16 @@ export const LudoAction = createSlice({
             green: ['H', 'H', 'H', 'H'],
             blue: ['H', 'H', 'H', 'H']
         },
+        passedCount: {
+            red: 0,
+            yellow: 0,
+            green: 0,
+            blue: 0,
+        },
         score: 0,
-        playerCount: 4
+        playerCount: 4,
+        recentlyPassed: [],
+
     },
     reducers: {
         begin: (state, action) => {
@@ -30,13 +38,7 @@ export const LudoAction = createSlice({
 
             // console.log(JSON.stringify(state.states[player]))
         },
-        passThisPawn: (state, action) => {
-            var player = action.payload['player']
-            var index = action.payload['index']
-            state.states[player][index] = "P"
 
-            console.log(JSON.stringify(state.states[player]))
-        },
         pass: (state, action) => {
             var player = action.payload['player']
             return state.states[player].every(entry => entry === "P")
@@ -50,7 +52,23 @@ export const LudoAction = createSlice({
             var PlayerCount = action.payload['playerCount']
             state.playerCount = PlayerCount
         },
+        setRecentlyPassedpawn: (state, action) => {
+            state.recentlyPassed.push(action.payload);
+            const id = action.payload['id']
+            // const index = id[id.length - 1];
+            var player;
+            if (id.includes('red')) player = 'red'
+            else if (id.includes('green')) player = 'green'
+            else if (id.includes('yellow')) player = 'yellow'
+            else if (id.includes('blue')) player = 'blue'
+
+            state.passedCount[player]++;
+            
+            // state.recentlyPassed.forEach(element => {
+            //     console.log("Recently passed----> " + element['id'] + "----" + element['className']);
+            // });
+        }
     }
 })
 
-export const { begin, kill, pass, passThisPawn, setScore, setCurrentPlayerCount } = LudoAction.actions
+export const { begin, kill, pass, setScore, setCurrentPlayerCount, setRecentlyPassedpawn } = LudoAction.actions
