@@ -1,0 +1,43 @@
+#greenPassed,
+#redPassed,
+#bluePassed,
+#yellowPassed {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+#greenPassed {
+    background-color: green;
+}
+
+#redPassed {
+    background-color: hsl(0, 75%, 68%);
+}
+#bluePassed {
+    background-color: rgb(88, 88, 239);
+}
+#rednblue{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+}
+
+
+
+
+
+#yellowPassed {
+    background-color: yellow;
+}
+
+
+#greenPassed>*,
+#redPassed>*,
+#bluePassed>*,
+#yellowPassed>* {
+    border: 2px solid rgb(178 174 175);
+    height: 20px;
+    width: 20px;
+}

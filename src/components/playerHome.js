@@ -100,7 +100,7 @@ export default function PlayerHome(props) {
       targetDivId = targetDivId.toString()
 
       if (colorName === "red" && currentDivId + inc === 13) {
-        targetPawn.classList.remove("multipleDisplay")
+        targetPawn.classList.remove("multipleDisplay","singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,
@@ -111,7 +111,7 @@ export default function PlayerHome(props) {
         return;
       }
       else if (colorName === "green" && currentDivId + inc === 31) {
-        targetPawn.classList.remove("multipleDisplay")
+        targetPawn.classList.remove("multipleDisplay","singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,
@@ -122,7 +122,7 @@ export default function PlayerHome(props) {
         return;
       }
       else if (colorName === "blue" && currentDivId + inc === 49) {
-        targetPawn.classList.remove("multipleDisplay")
+        targetPawn.classList.remove("multipleDisplay","singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,
@@ -133,7 +133,7 @@ export default function PlayerHome(props) {
         return;
       }
       else if (colorName === "yellow" && currentDivId + inc === 67) {
-        targetPawn.classList.remove("multipleDisplay")
+        targetPawn.classList.remove("multipleDisplay","singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,

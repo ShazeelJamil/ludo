@@ -19,7 +19,10 @@ export const LudoAction = createSlice({
         },
         score: 0,
         playerCount: 4,
-        recentlyPassed: [],
+        recentlyPassedRed: [],
+        recentlyPassedYellow: [],
+        recentlyPassedGreen: [],
+        recentlyPassedBlue: [],
 
     },
     reducers: {
@@ -53,14 +56,27 @@ export const LudoAction = createSlice({
             state.playerCount = PlayerCount
         },
         setRecentlyPassedpawn: (state, action) => {
-            state.recentlyPassed.push(action.payload);
+            // state.recentlyPassed.push(action.payload);
             const id = action.payload['id']
             // const index = id[id.length - 1];
             var player;
-            if (id.includes('red')) player = 'red'
-            else if (id.includes('green')) player = 'green'
-            else if (id.includes('yellow')) player = 'yellow'
-            else if (id.includes('blue')) player = 'blue'
+            if (id.includes('red')){
+                player = 'red'
+                state.recentlyPassedRed.push(action.payload)
+                
+            }
+            else if (id.includes('green')){
+                player = 'green'
+                state.recentlyPassedGreen.push(action.payload)
+            }
+            else if (id.includes('yellow')) {
+                player = 'yellow'
+                state.recentlyPassedYellow.push(action.payload)
+            }
+            else if (id.includes('blue')) {
+                player = 'blue'
+                state.recentlyPassedBlue.push(action.payload)
+            }
 
             state.passedCount[player]++;
             
