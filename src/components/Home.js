@@ -22,26 +22,20 @@ export default function Home() {
           })}
         </div>
       }
-
-
-      <div id='rednblue'>
-          {
-            <div id='redPassed' style={passedPawnCSS}>
-              {passedListRed.map((elem, index) => {
-                return <div key={index} id={elem['id']} className={elem['className']} style={pawnCSS} ></div>
-              })}
-            </div>
-          }
-          {
-            <div id='bluePassed' style={passedPawnCSS}>
-              {passedListBlue.map((elem, index) => {
-                return <div key={index} id={elem['id']} className={elem['className']} style={pawnCSS} ></div>
-              })}
-            </div>
-          }
-      </div>
-
-
+      {
+        <div id='redPassed' style={passedPawnCSS}>
+          {passedListRed.map((elem, index) => {
+            return <div key={index} id={elem['id']} className={elem['className']} style={pawnCSS} ></div>
+          })}
+        </div>
+      }
+      {
+        <div id='bluePassed' style={passedPawnCSS}>
+          {passedListBlue.map((elem, index) => {
+            return <div key={index} id={elem['id']} className={elem['className']} style={pawnCSS} ></div>
+          })}
+        </div>
+      }
       {
         <div id='yellowPassed' style={passedPawnCSS}>
           {passedListYellow.map((elem, index) => {

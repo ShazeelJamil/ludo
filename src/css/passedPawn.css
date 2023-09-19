@@ -1,4 +1,3 @@
-#greenPassed,
 #redPassed,
 #bluePassed,
 #yellowPassed {
@@ -9,27 +8,38 @@
 
 
 #greenPassed {
-    background-color: green;
+    /* background-color: rgb(113, 203, 113); */
+    display:flex ;
+    justify-content: center;
+    align-items: center;
 }
 
 #redPassed {
-    background-color: hsl(0, 75%, 68%);
+    /* background-color: hsl(0, 75%, 68%); */
+    position: absolute;
+    top: 20px;
+    display:flex ;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
 }
 #bluePassed {
-    background-color: rgb(88, 88, 239);
+    /* background-color: rgb(88, 88, 239); */
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
 }
-#rednblue{
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-}
-
-
-
-
 
 #yellowPassed {
-    background-color: yellow;
+    /* background-color: yellow; */
+    display:flex ;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0px;
+    left: 25px;
 }
 
 

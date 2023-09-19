@@ -1,5 +1,5 @@
 .home
 {
-    /* border: 1px solid black; */
     background-image: linear-gradient(to right, red , blue);
+    position: relative;
 }
