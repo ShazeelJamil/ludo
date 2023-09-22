@@ -31,9 +31,13 @@ export default function Display() {
 
   const dispatch = useDispatch()
   const states = useSelector((state) => state.ludo.states)
+  const [firstClick, setFirstClick] = useState(true);
 
   var player = ['red', 'green', 'blue', 'yellow'];
   if (PlayerCount === 2) player = ['red', 'blue', 'red', 'blue']
+
+  // eslint-disable-next-line
+  const passedCount = useSelector((state) => state.ludo.passedCount)
 
   // window.onload = function () {
   //   console.log("DOM is ready.")
@@ -122,7 +126,43 @@ export default function Display() {
     }
   }
 
+  const highlightPlayer = () => {
+    if (CurrentPlayer === 'red') {
+      var div = document.getElementById('RedTurnDiv')
+      div.style.border = '1px solid white';
+      div.style.borderRadius = '10px';
+    }
+    else if (CurrentPlayer === 'green') {
+      var div = document.getElementById('GreenTurnDiv')
+      div.style.border = '1px solid white';
+      div.style.borderRadius = '10px';
+    }
+    else if (CurrentPlayer === 'blue') {
+      var div = document.getElementById('BlueTurnDiv')
+      div.style.border = '1px solid white';
+      div.style.borderRadius = '10px';
+    }
+    else if (CurrentPlayer === 'yellow') {
+      var div = document.getElementById('YellowTurnDiv');
+      div.style.border = '1px solid white';
+      div.style.borderRadius = '10px';
+    }
+  }
+  const unhighlightPlayer = () => {
+
+    document.getElementById('RedTurnDiv').style.border = 'none';
+
+    document.getElementById('GreenTurnDiv').style.border = 'none';
+
+    document.getElementById('BlueTurnDiv').style.border = 'none';
+
+    document.getElementById('YellowTurnDiv').style.border = 'none';
+  }
+
   const handleDiceClick = async (event) => {
+
+    if (firstClick === false) unhighlightPlayer()
+    highlightPlayer();
 
     disableAll();
     const randomNumber = Math.floor(Math.random() * 6) + 1;
@@ -147,9 +187,11 @@ export default function Display() {
     setCurrentPlayer(player[counter])
     setCounter((counter + 1) % 4)
 
-    if (randomNumber === 6) { enableClickOf(CurrentPlayer) }
-    else { enableClickOf(CurrentPlayer, true) }
-
+    if (firstClick === false) {
+      if (randomNumber === 6) { enableClickOf(CurrentPlayer) }
+      else { enableClickOf(CurrentPlayer, true) }
+    }
+    setFirstClick(false)
   }
 
 
@@ -164,36 +206,48 @@ export default function Display() {
             <option value="4" >4</option>
             <option value="2" >2</option>
           </select>
-          {/* <button type="button" id='' className="btn btn-primary"  >Apply {PlayerCount} Players Game</button> */}
         </div>
 
         <div id='activePlayers'>
           {PlayerCount === 2 ?
             <>
-              <p onInput={handlePlayerNameChange} data-playerno='1' id='firstPlayer' className='playerNameText' >{firstplayer}:</p>
-              <span className='editText' data-playerno='1' onClick={enablePlayerNameChange} >edit name</span>
-              <p>Red</p>
+              <div id='RedTurnDiv' className='playerDescription'>
+                <p onInput={handlePlayerNameChange} data-playerno='1' id='firstPlayer' className='playerNameText' >{firstplayer}:</p>
+                <span className='editText' data-playerno='1' onClick={enablePlayerNameChange} >edit name</span>
+                <p>Red</p>
+              </div>
 
-              <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{secondplayer}:</p>
-              <span className='editText' data-playerno='2' onClick={enablePlayerNameChange} >edit name</span>
-              <p>Blue</p>
+              <div id='BlueTurnDiv' className='playerDescription'>
+                <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{secondplayer}:</p>
+                <span className='editText' data-playerno='2' onClick={enablePlayerNameChange} >edit name</span>
+                <p>Blue</p>
+              </div>
             </> :
             <>
-              <p onInput={handlePlayerNameChange} data-playerno='1' id='firstPlayer' className='playerNameText' >{firstplayer}:</p>
-              <span className='editText' data-playerno='1' onClick={enablePlayerNameChange} >edit name</span>
-              <p>Red</p>
+              <div id='RedTurnDiv' className='playerDescription' >
+                <p onInput={handlePlayerNameChange} data-playerno='1' id='firstPlayer' className='playerNameText' >{firstplayer}:</p>
+                <span className='editText' data-playerno='1' onClick={enablePlayerNameChange} >edit name</span>
+                <p>Red</p>
+              </div>
 
-              <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{secondplayer}:</p>
-              <span className='editText' data-playerno='2' onClick={enablePlayerNameChange} >edit name</span>
-              <p>Green</p>
+              <div id='GreenTurnDiv' className='playerDescription'>
+                <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{secondplayer}:</p>
+                <span className='editText' data-playerno='2' onClick={enablePlayerNameChange} >edit name</span>
+                <p>Green</p>
+              </div>
 
-              <p onInput={handlePlayerNameChange} data-playerno='3' id='thirdPlayer' className='playerNameText'>{thirdplayer}:</p>
-              <span className='editText' data-playerno='3' onClick={enablePlayerNameChange} >edit name</span>
-              <p>Blue</p>
+              <div id='BlueTurnDiv' className='playerDescription' >
+                <p onInput={handlePlayerNameChange} data-playerno='3' id='thirdPlayer' className='playerNameText'>{thirdplayer}:</p>
+                <span className='editText' data-playerno='3' onClick={enablePlayerNameChange} >edit name</span>
+                <p>Blue</p>
+              </div>
 
-              <p onInput={handlePlayerNameChange} data-playerno='4' id='fourthPlayer' className='playerNameText'>{fourthplayer}:</p>
-              <span className='editText' data-playerno='4' onClick={enablePlayerNameChange} >edit name</span>
-              <p>Yellow</p>
+              <div id='YellowTurnDiv' className='playerDescription' >
+                <p onInput={handlePlayerNameChange} data-playerno='4' id='fourthPlayer' className='playerNameText'>{fourthplayer}:</p>
+                <span className='editText' data-playerno='4' onClick={enablePlayerNameChange} >edit name</span>
+                <p>Yellow</p>
+              </div>
+
             </>
           }
 
@@ -206,7 +260,7 @@ export default function Display() {
 
       </div>
 
-      
+
     </div >
   )
 }

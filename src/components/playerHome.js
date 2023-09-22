@@ -1,4 +1,5 @@
-import React from 'react';
+// eslint-disable-next-line
+import React, { useState } from 'react';
 import pawnCSS from '../css/pawnCSS.css'
 import pawnDivCSS from "../css/playerHomeCss.css";
 import chroma from 'chroma-js';
@@ -28,6 +29,7 @@ export default function PlayerHome(props) {
   // eslint-disable-next-line
   var score = useSelector((state) => state.ludo.score)
 
+  
 
   function enableOnTheWay(player, pawnindex) {
     const action = {
@@ -56,7 +58,7 @@ export default function PlayerHome(props) {
 
 
 
-  const playAnimation = (event, index) => {
+  const playAnimation  = async (event, index) => {
 
     // if (score === 0) return;      //uncomment this after testing
 
@@ -100,7 +102,7 @@ export default function PlayerHome(props) {
       targetDivId = targetDivId.toString()
 
       if (colorName === "red" && currentDivId + inc === 13) {
-        targetPawn.classList.remove("multipleDisplay","singlePawn")
+        targetPawn.classList.remove("multipleDisplay", "singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,
@@ -111,7 +113,7 @@ export default function PlayerHome(props) {
         return;
       }
       else if (colorName === "green" && currentDivId + inc === 31) {
-        targetPawn.classList.remove("multipleDisplay","singlePawn")
+        targetPawn.classList.remove("multipleDisplay", "singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,
@@ -122,7 +124,7 @@ export default function PlayerHome(props) {
         return;
       }
       else if (colorName === "blue" && currentDivId + inc === 49) {
-        targetPawn.classList.remove("multipleDisplay","singlePawn")
+        targetPawn.classList.remove("multipleDisplay", "singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,
@@ -130,10 +132,11 @@ export default function PlayerHome(props) {
         setRecentyPas(element)
         targetPawn.style.left = '-4px'
         targetPawn.style.display = "none"
+        
         return;
       }
       else if (colorName === "yellow" && currentDivId + inc === 67) {
-        targetPawn.classList.remove("multipleDisplay","singlePawn")
+        targetPawn.classList.remove("multipleDisplay", "singlePawn")
         const element = {
           id: targetPawn.id,
           className: targetPawn.classList,
@@ -144,6 +147,7 @@ export default function PlayerHome(props) {
         return;
 
       }
+
     }
 
     // if (targetPawn.parentElement.id === targetDivId) return; // source and dstination are same
@@ -155,7 +159,6 @@ export default function PlayerHome(props) {
 
     if (targetDiv.hasChildNodes() && targetDivId !== "home") {
 
-      console.log("inside kill machanism ")
       var lastChild = targetDiv.lastElementChild;
 
       var lastChildLeft = lastChild.style.left || '0';

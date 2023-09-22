@@ -12,10 +12,10 @@ export const LudoAction = createSlice({
             blue: ['H', 'H', 'H', 'H']
         },
         passedCount: {
-            red: 0,
-            yellow: 0,
-            green: 0,
-            blue: 0,
+            red: 1,
+            yellow: 1,
+            green: 1,
+            blue: 1,
         },
         score: 0,
         playerCount: 4,
@@ -41,11 +41,6 @@ export const LudoAction = createSlice({
 
             // console.log(JSON.stringify(state.states[player]))
         },
-
-        pass: (state, action) => {
-            var player = action.payload['player']
-            return state.states[player].every(entry => entry === "P")
-        },
         setScore: (state, action) => {
             var score = action.payload['score']
             state.score = score
@@ -60,12 +55,11 @@ export const LudoAction = createSlice({
             const id = action.payload['id']
             // const index = id[id.length - 1];
             var player;
-            if (id.includes('red')){
+            if (id.includes('red')) {
                 player = 'red'
                 state.recentlyPassedRed.push(action.payload)
-                
             }
-            else if (id.includes('green')){
+            else if (id.includes('green')) {
                 player = 'green'
                 state.recentlyPassedGreen.push(action.payload)
             }
@@ -77,14 +71,11 @@ export const LudoAction = createSlice({
                 player = 'blue'
                 state.recentlyPassedBlue.push(action.payload)
             }
+            state.passedCount[player] += 1;
 
-            state.passedCount[player]++;
-            
-            // state.recentlyPassed.forEach(element => {
-            //     console.log("Recently passed----> " + element['id'] + "----" + element['className']);
-            // });
+            console.log('Inside state' + state.passedCount[player])
         }
     }
 })
 
-export const { begin, kill, pass, setScore, setCurrentPlayerCount, setRecentlyPassedpawn } = LudoAction.actions
+export const { begin, kill, setScore, setCurrentPlayerCount, setRecentlyPassedpawn } = LudoAction.actions

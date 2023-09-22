@@ -1,7 +1,6 @@
 .display
 {
     /* border: 1px solid black; */
-    background-color: rgb(173, 173, 173);
     max-height: 90vh;
     min-height: 90vh;
     
@@ -9,12 +8,13 @@
     justify-content: center;
     background-image: linear-gradient(to bottom, rgb(241, 0, 0) , rgb(32, 32, 222));
     border-radius: 8px;
+    
 
 }
 .display-container
 {
     margin: 10px;
-    border: 1px solid rgb(255, 255, 255);
+    /* border: 1px solid rgb(255, 255, 255); */
     min-width: 400px;
     color: aliceblue;
     padding: 10px;
@@ -46,17 +46,6 @@
 #noOfPlayers > * {
     border-radius: 5px; /* You can adjust the value as needed */
 }
-#activePlayers
-{
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 10px;
-
-    /* border: 1px solid white; */
-    justify-content: space-around;
-    align-items: center;
-
-}
 .editText
 {
     color: rgb(242, 146, 82);   
@@ -79,3 +68,13 @@
 
 }
 
+.playerDescription
+{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 30px;
+    align-items: stretch;
+    justify-content: space-around;
+    
+    margin-top: 10px;
+}
