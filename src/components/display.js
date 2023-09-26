@@ -9,6 +9,12 @@ import six from '../imgs/6.jpg'
 import rolling from '../imgs/dice.gif'
 import { useDispatch, useSelector } from 'react-redux'
 import { setScore, setCurrentPlayerCount } from '../provider/Slices/LudoAction';
+import first from '../imgs/winners/1st.png'
+import second from '../imgs/winners/2nd.png'
+import third from '../imgs/winners/3rd.png'
+import fourth from '../imgs/winners/4th.png'
+
+
 
 
 export default function Display() {
@@ -16,6 +22,14 @@ export default function Display() {
   // document.addEventListener("DOMContentLoaded", function () {
   //   disableAll();
   //   console.log("DOM is ready.");
+  // });
+
+  // const [winnerStyle, setWinnerStyle] = useState({
+  //   position: 'absolute',
+  //   top: '-10px',
+  //   left: '25%',
+  //   height: '50px',
+  //   // display: 'none',
   // });
 
 
@@ -38,21 +52,64 @@ export default function Display() {
 
   // eslint-disable-next-line
   const passedCount = useSelector((state) => state.ludo.passedCount)
+  // eslint-disable-next-line
+  const positions = useSelector((state) => state.ludo.positionHolder)
+  
+  const redPos = positions['red']
+  // eslint-disable-next-line
+  const greenPos = positions['green']
+  // eslint-disable-next-line
+  const bluePos = positions['blue']
+  // eslint-disable-next-line
+  const yellowPos = positions['yellow']
+
+  if (redPos !== 0) {
+    var d1 = document.getElementById('redWinImg')
+    d1.style.display = 'block'
+    d1.parentElement.style.opacity='50%';
+    player = player.filter(item => item !== 'red');    
+    if (redPos === 1) d1.src = first;
+    else if (redPos === 2) d1.src = second
+    else if (redPos === 3) d1.src = third
+    else if (redPos === 4) d1.src = fourth
+  }
+  else if (greenPos !== 0) {
+    var d2 = document.getElementById('greenWinImg')
+    d2.style.display = 'block'
+    d2.parentElement.style.opacity='50%';
+    d2.style.opacity='100%'
+    player = player.filter(item => item !== 'green');    
+    if (greenPos === 1) d2.src = first;
+    else if (greenPos === 2) d2.src = second
+    else if (greenPos === 3) d2.src = third
+    else if (greenPos === 4) d2.src = fourth
+  }
+  else if (bluePos !== 0) {
+    var d3 = document.getElementById('blueWinImg')
+    d3.style.display = 'block'
+    d3.parentElement.style.opacity='50%';
+    player = player.filter(item => item !== 'blue');    
+    if (bluePos === 1) d3.src = first;
+    else if (bluePos === 2) d3.src = second
+    else if (bluePos === 3) d3.src = third
+    else if (bluePos === 4) d3.src = fourth
+  }
+  // else if (yellowPos !== 0) {
+  //   var d4 = document.getElementById('yellowWinImg')
+  //   d4.style.display = 'block'
+  //   if (yellowPos === 1) d4.src = first;
+  //   else if (yellowPos === 2) d4.src = second
+  //   else if (yellowPos === 3) d4.src = third
+  //   else if (yellowPos === 4) d4.src = fourth
+  // }
+
 
   // window.onload = function () {
   //   console.log("DOM is ready.")
-  //   for (let i = 0; i < 4; i++) {
-  //     var elem = player[i];
-  //     for (let j = 0; j < 4; j++) {
-  //       var el = states[elem][j]
-  //       if (el !== "O") {
-  //         const div = document.getElementById(elem + j);
-  //         div.style.opacity = "50%"
-  //         div.style.pointerEvents = "none";
-  //       }
-  //     }
-  //   }
+  //   document.getElementsByClassName('positionHolder').style.display = 'none'
   // }
+
+
 
   const disableAll = () => {
     var playerTemp = ['red', 'green', 'blue', 'yellow']; // this is to disable all the pawn even of  PlayerCount is 2
@@ -127,23 +184,24 @@ export default function Display() {
   }
 
   const highlightPlayer = () => {
+    var div;
     if (CurrentPlayer === 'red') {
-      var div = document.getElementById('RedTurnDiv')
+      div = document.getElementById('RedTurnDiv')
       div.style.border = '1px solid white';
       div.style.borderRadius = '10px';
     }
     else if (CurrentPlayer === 'green') {
-      var div = document.getElementById('GreenTurnDiv')
+      div = document.getElementById('GreenTurnDiv')
       div.style.border = '1px solid white';
       div.style.borderRadius = '10px';
     }
     else if (CurrentPlayer === 'blue') {
-      var div = document.getElementById('BlueTurnDiv')
+      div = document.getElementById('BlueTurnDiv')
       div.style.border = '1px solid white';
       div.style.borderRadius = '10px';
     }
     else if (CurrentPlayer === 'yellow') {
-      var div = document.getElementById('YellowTurnDiv');
+      div = document.getElementById('YellowTurnDiv');
       div.style.border = '1px solid white';
       div.style.borderRadius = '10px';
     }
@@ -195,6 +253,7 @@ export default function Display() {
   }
 
 
+
   return (
     <div className='display' style={DisplayCSS}>
 
@@ -215,12 +274,14 @@ export default function Display() {
                 <p onInput={handlePlayerNameChange} data-playerno='1' id='firstPlayer' className='playerNameText' >{firstplayer}:</p>
                 <span className='editText' data-playerno='1' onClick={enablePlayerNameChange} >edit name</span>
                 <p>Red</p>
+                <img className='positionHolder' id='redWinImg' src='' alt='Winner' />
               </div>
 
               <div id='BlueTurnDiv' className='playerDescription'>
                 <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{secondplayer}:</p>
                 <span className='editText' data-playerno='2' onClick={enablePlayerNameChange} >edit name</span>
                 <p>Blue</p>
+                <img className='positionHolder' id='blueWinImg' src='' alt='Winner' />
               </div>
             </> :
             <>
@@ -228,24 +289,28 @@ export default function Display() {
                 <p onInput={handlePlayerNameChange} data-playerno='1' id='firstPlayer' className='playerNameText' >{firstplayer}:</p>
                 <span className='editText' data-playerno='1' onClick={enablePlayerNameChange} >edit name</span>
                 <p>Red</p>
+                <img className='positionHolder' id='redWinImg' src='' alt='Winner' />
               </div>
 
               <div id='GreenTurnDiv' className='playerDescription'>
                 <p onInput={handlePlayerNameChange} data-playerno='2' id='secondPlayer' className='playerNameText'>{secondplayer}:</p>
                 <span className='editText' data-playerno='2' onClick={enablePlayerNameChange} >edit name</span>
                 <p>Green</p>
+                <img className='positionHolder' id='greenWinImg' src='' alt='Winner' />
               </div>
 
               <div id='BlueTurnDiv' className='playerDescription' >
                 <p onInput={handlePlayerNameChange} data-playerno='3' id='thirdPlayer' className='playerNameText'>{thirdplayer}:</p>
                 <span className='editText' data-playerno='3' onClick={enablePlayerNameChange} >edit name</span>
                 <p>Blue</p>
+                <img className='positionHolder' id='blueWinImg' src='' alt='Winner' />
               </div>
 
               <div id='YellowTurnDiv' className='playerDescription' >
                 <p onInput={handlePlayerNameChange} data-playerno='4' id='fourthPlayer' className='playerNameText'>{fourthplayer}:</p>
                 <span className='editText' data-playerno='4' onClick={enablePlayerNameChange} >edit name</span>
                 <p>Yellow</p>
+                <img className='positionHolder' id='yellowWinImg' src='' alt='Winner' />
               </div>
 
             </>
@@ -254,9 +319,10 @@ export default function Display() {
         </div>
 
         <div className="dicesContainer" >
-          <h6>{CurrentPlayer.toUpperCase()} Player's Turn </h6>
+          <h6>{CurrentPlayer } Player's Turn </h6>
           <img src={rolling} id='dice' alt='dice' height='80px' width='80px' onClick={handleDiceClick} />
         </div>
+
 
       </div>
 

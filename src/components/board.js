@@ -38,19 +38,14 @@ export default function Board() {
         [67, 61, 60]
     ]
     var yellowUnkillableStops = [58, 68, 62, 63, 64, 65, 66];
-
-
+    
     var unkillables =[
         yellowUnkillableStops,
         blueUnkillableStops,
         greenUnkillableStops,
         redUnkillableStops
     ]
-
-
     const states = useSelector((state) => state.ludo.states)
-
-    
 
     return (
         <>

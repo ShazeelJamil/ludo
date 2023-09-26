@@ -11,11 +11,18 @@ export const LudoAction = createSlice({
             green: ['H', 'H', 'H', 'H'],
             blue: ['H', 'H', 'H', 'H']
         },
+        winnerSequence: [4, 3, 2, 1],
         passedCount: {
             red: 1,
             yellow: 1,
             green: 1,
             blue: 1,
+        },
+        positionHolder: {
+            red: 0,
+            yellow: 0,
+            green: 0,
+            blue: 0,
         },
         score: 0,
         playerCount: 4,
@@ -73,7 +80,11 @@ export const LudoAction = createSlice({
             }
             state.passedCount[player] += 1;
 
-            console.log('Inside state' + state.passedCount[player])
+            if (state.passedCount[player] === 5) {
+                state.positionHolder[player] = state.winnerSequence.pop();
+            }
+
+            // console.log('Inside state' + state.passedCount[player])
         }
     }
 })

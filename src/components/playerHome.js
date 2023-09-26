@@ -28,6 +28,9 @@ export default function PlayerHome(props) {
   const dispatch = useDispatch()
   // eslint-disable-next-line
   var score = useSelector((state) => state.ludo.score)
+  // eslint-disable-next-line
+  const passedCount = useSelector((state) => state.ludo.passedCount)
+
 
   
 
@@ -55,8 +58,6 @@ export default function PlayerHome(props) {
   function isAtCriticalPoint(id) {
     return (id === 7 || id === 25 || id === 43 || id === 61)
   }
-
-
 
   const playAnimation  = async (event, index) => {
 
@@ -110,6 +111,7 @@ export default function PlayerHome(props) {
         setRecentyPas(element)
         targetPawn.style.left = '-4px'
         targetPawn.style.display = "none"
+
         return;
       }
       else if (colorName === "green" && currentDivId + inc === 31) {
@@ -208,6 +210,7 @@ export default function PlayerHome(props) {
           else { return (<p key={props.bgColor + index} >no</p>) }
         })}
       </div>
+
     </div>
 
   )
